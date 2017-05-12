@@ -6,20 +6,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
-import {MaterialModule} from './material.module';
+import { ListProductComponent } from './product/list-product/list-product.component';
+import {ProductDataServerService} from './service/product-data-server.service';
+import {MaterializeModule} from 'angular2-materialize/dist';
+import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './login/login/login.component';
+import {ProductRoutingModule} from './product/product-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListProductComponent,
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterializeModule,
+    ProductRoutingModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [ProductDataServerService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
