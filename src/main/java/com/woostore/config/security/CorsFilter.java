@@ -1,4 +1,4 @@
-package com.woostore.config;
+package com.woostore.config.security;
 
 import org.springframework.stereotype.Component;
 

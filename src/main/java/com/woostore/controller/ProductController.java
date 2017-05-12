@@ -3,101 +3,100 @@ package com.woostore.controller;
 import com.woostore.entity.Product;
 import com.woostore.services.ProductService;
 import org.apache.commons.io.FilenameUtils;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Value;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.net.MalformedURLException;
+import java.nio.file.*;
+import java.nio.file.Path;
 import java.time.LocalTime;
+import java.util.List;
 
-@Controller
-@Path("/product")
-@ConfigurationProperties(prefix = "image")
+@RestController
 public class ProductController {
 
+    @Value("${image.urlPath}")
     String urlPath;
+
+    @Value("${image.dirPath}")
     String dirPath;
-
-    public void setUrlPath(String urlPath) {
-        this.urlPath = urlPath;
-    }
-
-    public void setDirPath(String dirPath) {
-        this.dirPath = dirPath;
-    }
 
     @Autowired
     ProductService productService;
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllProducts() {
-        return Response.ok(productService.getProducts()).build();
+
+
+    @GetMapping("/product")
+    public List<Product> getAllProducts() {
+        return productService.getProducts();
     }
 
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getProduct(@PathParam("id") long id) {
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> getProduct(@PathVariable("id") long id) {
         Product product = productService.findById(id);
         if(product != null) {
-            return Response.ok(product).build();
+            return ResponseEntity.ok(product);
         }
-        return Response.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GET
-    @Path("/image/{fileName}")
-    @Produces({"image/png", "image/jpg", "image/gif"})
-    public Response getProductImage(@PathParam("fileName") String filename) {
-        File file = Paths.get(dirPath + filename).toFile();
-        if (file.exists()) {
-            Response.ResponseBuilder responseBuilder = Response.ok((Object) file);
-            responseBuilder.header("Content-Disposition", "attachment; filename=" + filename);
-            return responseBuilder.build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    @PostMapping("/product")
+    public Product addProduct(@RequestBody Product product) {
+        return productService.addProduct(product);
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addProduct(Product product) {
-        return Response.ok(productService.addProduct(product)).build();
-    }
 
-    @POST
-    @Path("/image")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response addProductImage(@FormDataParam("file") InputStream fileInputStream, @FormDataParam("file") FormDataContentDisposition cdh) {
+
+
+    @GetMapping("/product/image/{fileName:.+}")
+    public ResponseEntity<?> getProductImage(@PathVariable("fileName") String filename) {
+        Path pathFile = Paths.get(dirPath + filename);
         try {
-            BufferedImage img = ImageIO.read(fileInputStream);
-            String oldFilename = cdh.getFileName();
+            Resource resource = new UrlResource(pathFile.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                        .body(resource);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (MalformedURLException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
+    @PostMapping("/product/image")
+    public ResponseEntity<?> addProductImage(@RequestParam("file") MultipartFile file) {
+        try {
+            BufferedImage img = ImageIO.read(file.getInputStream());
+            String oldFilename = file.getOriginalFilename();
             String ext = FilenameUtils.getExtension(oldFilename);
             String filename = Integer.toString(LocalTime.now().hashCode(), 16) + Integer.toString(oldFilename.hashCode(), 16) + "." + ext;
             File targetFile = Files.createFile(Paths.get(dirPath + filename)).toFile();
             ImageIO.write(img, ext, targetFile);
-            return Response.ok(filename).build();
+            return ResponseEntity.ok(filename);
         }
         catch (NullPointerException e){
             e.printStackTrace();
-            return Response.status(202).build();
+            return ResponseEntity.status(202).build();
         }
         catch (IOException e) {
-            return Response.serverError().build();
+            return ResponseEntity.status(500).build();
         }
     }
+
 }
