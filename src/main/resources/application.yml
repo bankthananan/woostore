@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active:
+      - zenon
+      - inMemoryDB
+---
+spring:
+  profiles: zenon
+image:
+  urlPath: 'http://localhost:8080/product/image/'
+  dirPath: '/Users/zenon/Desktop/woostore/images/'
+---
+spring:
+  profiles: iammiind
+image:
+  urlPath: 'http://localhost:8080/product/image/'
+  dirPath: '/Users/iammiind/Desktop/woostore/images/'
+---
+spring:
+  profiles: inMemoryDB
+  datasource:
+    url: jdbc:h2:mem:woostore;DB_CLOSE_DELAY=- 1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
