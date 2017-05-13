@@ -4,10 +4,16 @@ import 'rxjs';
 
 @Injectable()
 export class ProductDataServerService {
+  serverPath: string = 'http://localhost:8080/';
   constructor(private http: Http) {}
 
-  getProductsData() {
-    return this.http.get('http://localhost:8080/product')
+  getAllProduct() {
+    return this.http.get(this.serverPath + 'product')
+      .map(res => res.json());
+  }
+
+  getProduct(id: number) {
+    return this.http.get(this.serverPath + 'product/' + id)
       .map(res => res.json());
   }
 

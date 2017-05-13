@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Headers, Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Rx";
 
@@ -10,7 +10,9 @@ export class AuthenticationService {
     'Authorization': 'Bearer ' + this.getToken()
   });
 
-  constructor(private http:Http) { }
+  constructor(private http:Http) {
+    this.checkCustomerLogin();
+  }
 
   login(username:string, password:string): Observable<boolean>{
     let headers = new Headers({'Content-Type':'application/json'})
@@ -53,13 +55,11 @@ export class AuthenticationService {
       .map((res: Response) => {
         if(res) {
           if(res.status === 200) {
+            console.log("1");
             this.isCustomerLogin = true;
             return true;
           }
         }
-        this.isCustomerLogin = false;
-        return false;
-      }, (error: any) => {
         this.isCustomerLogin = false;
         return false;
       });
