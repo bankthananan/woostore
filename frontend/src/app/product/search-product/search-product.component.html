@@ -1,17 +1,30 @@
 <div class="search-wrapper">
   <div class="container">
     <div class="row">
+      <!--Name or Description-->
       <div class="row">
-        <div class="input-field col l8">
-          <input id="" type="text" class="validate">
-          <label class="active" for="name">Search for...</label>
+        <div class="input-field col l12">
+          <input id="name-description" type="text" class="validate">
+          <label class="active" for="name-description">Search for...</label>
         </div>
+        <form materialize action="#" class="col l12">
+            <div class="row">
+              <div class="col l6">
+                <input type="checkbox" id="name" />
+                <label for="name">Name</label>
+              </div>
+              <div class="col l6">
+                <input type="checkbox" id="description" />
+                <label for="description">Description</label>
+              </div>
+            </div>
+        </form>
       </div>
       <!--Rang price-->
       <div class="row">
-        <form class="col l12">
+        <form materialize class="col l12">
           <div class="row">
-            <div class="col l5">
+            <div class="col l5 search-price-wrapper">
               <p> PRICE </p>
             </div>
             <div class="input-field col l7">
@@ -25,14 +38,14 @@
               <label for="rang-two">to...</label>
             </div>
           </div>
-          <div class="row">
-            <div class="col l12">
-              <button class="btn waves-effect waves-light" type="submit" name="action"> SEARCH <i class="material-icons right">search</i></button>
-            </div>
-          </div>
         </form>
+        <!--search button-->
+        <div class="row">
+          <div class="col l12">
+            <button class="btn waves-effect waves-light" type="submit" name="action"> SEARCH <i class="material-icons right">search</i></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
