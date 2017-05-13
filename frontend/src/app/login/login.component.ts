@@ -2,41 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../service/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
+declare var Materialize: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   username: string = '';
   password : string = '';
-  error = ''
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
-    this.authenticationService.checkCustomerLogin()
-      .subscribe( isLogin => {
-        if(isLogin === true) {
-          this.router.navigate(['list']);
-        }
-      });
+    if(this.authenticationService.isLogin()) {
+      this.router.navigate(['']);
+    }
   }
 
   login() {
-    console.log('username =>'+ this.username + 'password =>'+ this.password);
-    this.authenticationService.login(this.username, this.password)
-      .subscribe(result => {
-        if(result === true) {
-          // login success
+    this.authenticationService.login(this.username, this.password).subscribe(result => {
+        if(result) {
           this.router.navigate(['list']).then($ => window.location.reload());
-        }else {
-          // login failed
-          this.error = 'Username or Password is incorrect';
         }
       }, (error) => {
-        this.error = error;
-      })
+        if(error === 'Unauthorized') {
+          Materialize.toast('Username or Password is incorrect', 4000)
+        }
+        else {
+          Materialize.toast(error, 4000)
+        }
+      });
   }
 
 

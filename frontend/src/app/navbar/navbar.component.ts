@@ -9,10 +9,10 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
-  isLogin: boolean = this.authenticationService.isCustomerLogin;
+  // isLogin: boolean = this.authenticationService.isCustomerLogin;
   ngOnInit() {
-    console.log("2");
-    console.log("isLogin => "+ this.isLogin);
+    // console.log("2");
+    // console.log("isLogin => "+ this.isLogin);
   }
 
   logout() {

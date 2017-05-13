@@ -16,11 +16,8 @@ export class ListProductComponent implements OnInit {
     private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
-    this.authenticationService.checkCustomerLogin()
-      .subscribe( isLogin => {}, (error: any) => {
-        console.log('Not Login')
-        this.router.navigate(['login']);
-      })
+    console.log(this.authenticationService.isLogin());
+    console.log(this.authenticationService.hasRole('admin'));
 
     this.productDataService.getAllProduct()
       .subscribe(products => {
