@@ -1,6 +1,6 @@
 <div>
   <div class="col l3">
-      SEARCH
+      <app-search-product></app-search-product>
   </div>
   <div class="col l9">
     <div class="row">
@@ -15,7 +15,7 @@
             <p> {{product.price}} </p>
           </div>
           <div class="card-action">
-            <a href="#">This is a link</a>
+            <a (click)="viewDetail(product)">Detail...</a>
           </div>
         </div>
       </div>

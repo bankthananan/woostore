@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col l12">
+      <h2 class="header detail-header-name"> {{product.name}} </h2>
+      <div class="card horizontal">
+        <div class="card-image">
+          <img [src]="product.picture">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p> {{product.description}} </p>
+          </div>
+          <div class="card-content detail-content">
+            <p>Amount {{product.amount}}</p>
+            <p>Rating {{product.rating}} </p>
+            <p>Price {{product.price}} baht</p>
+          </div>
+          <div class="card-action detail-text-shopping-cart">
+            <a>Add to Shopping Cart</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

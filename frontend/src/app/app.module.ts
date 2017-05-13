@@ -15,8 +15,9 @@ import {ProductRoutingModule} from './product/product-routing.module';
 import {AppRoutingModule} from './app-routing.module';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { RegisterComponent } from './register/register.component';
-import { AddAdminComponent } from './admin/add-admin/add-admin.component';
 import {AuthenticationService} from './service/authentication.service';
+import { DetailProductComponent } from './product/detail-product/detail-product.component';
+import { SearchProductComponent } from './product/search-product/search-product.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {AuthenticationService} from './service/authentication.service';
     LoginComponent,
     AddProductComponent,
     RegisterComponent,
-    AddAdminComponent
+    DetailProductComponent,
+    SearchProductComponent
   ],
   imports: [
     BrowserModule,
