@@ -10,16 +10,20 @@ import { ListProductComponent } from './product/list-product/list-product.compon
 import {ProductDataServerService} from './service/product-data-server.service';
 import {MaterializeModule} from 'angular2-materialize/dist';
 import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login/login.component';
+import { LoginComponent } from './login/login.component';
 import {ProductRoutingModule} from './product/product-routing.module';
 import {AppRoutingModule} from './app-routing.module';
+import { AddProductComponent } from './product/add-product/add-product.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListProductComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    AddProductComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
