@@ -13,6 +13,11 @@ public class UserDaoImpl implements UserDao {
     UserRepository userRepository;
 
     @Override
+    public User findById(long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public User add(User user) {
         return userRepository.save(user);
     }

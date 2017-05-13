@@ -11,17 +11,18 @@ import javax.persistence.Id;
 @Entity
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
+//@RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NonNull long id;
-    @NonNull String name;
-    @NonNull double price;
-    @NonNull int amount;
-    @NonNull String description;
-    @NonNull String picture;
-    @NonNull double rating;
+    long id;
+    String name;
+    double price;
+    int amount;
+    String description;
+    String picture;
+    double rating;
 }

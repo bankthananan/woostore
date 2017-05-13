@@ -23,6 +23,7 @@ import java.util.Set;
 @JsonIgnoreProperties(value = "true")
 public class User {
 
+    @JsonView(View.Auth.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
@@ -47,7 +48,7 @@ public class User {
     @OneToOne
     UserAuth userAuth;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany
     Set<Transaction> transactions;
 

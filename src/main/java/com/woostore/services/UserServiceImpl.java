@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     UserAuthRepository userAuthRepository;
 
     @Override
+    public User findById(long id) {
+        return userDao.findById(id);
+    }
+
+    @Override
     @Transactional
     public User getUserByUsername(String username) {
         User user = userDao.findByUsername(username);

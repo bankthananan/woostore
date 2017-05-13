@@ -1,9 +1,12 @@
 package com.woostore.config;
 
 import com.woostore.dao.ProductDao;
+import com.woostore.dao.TransactionDao;
 import com.woostore.dao.UserDao;
 import com.woostore.entity.User;
+import com.woostore.entity.commerce.OrderItem;
 import com.woostore.entity.commerce.Product;
+import com.woostore.entity.commerce.Transaction;
 import com.woostore.entity.security.Authority;
 import com.woostore.entity.security.AuthorityName;
 import com.woostore.entity.security.UserAuth;
@@ -20,6 +23,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 public class DataLoader implements ApplicationRunner {
@@ -36,6 +41,8 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TransactionDao transactionDao;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -56,5 +63,13 @@ public class DataLoader implements ApplicationRunner {
         user.setUserAuth(UserAuth.builder().username("zenon").password("zenon").build());
 
         userService.addAdmin(user);
+
+        Transaction transaction = Transaction.builder().owner(user).date(new Date()).build();
+        OrderItem orderItem = OrderItem.builder().product(productDao.findById(1)).quantity(1).build();
+        Set<OrderItem> items = new HashSet<>();
+        items.add(orderItem);
+        transaction.setItems(items);
+        transactionDao.addTransaction(transaction);
+
     }
 }

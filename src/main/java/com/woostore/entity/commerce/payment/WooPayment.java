@@ -16,10 +16,8 @@ public class WooPayment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
     long id;
-//
-//    @OneToOne
-//    @NonNull
-//    WooPaymentType wooPaymentType;
+
+    long wooPaymentTypeID;
 
     @NonNull
     WooPaymentStatus wooPaymentStatus;

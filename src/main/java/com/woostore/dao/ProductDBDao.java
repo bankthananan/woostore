@@ -25,4 +25,8 @@ public class ProductDBDao implements ProductDao {
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }
+
+    public void deleteProduct(Long id) {
+        productRepository.delete(id);
+    }
 }
