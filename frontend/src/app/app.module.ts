@@ -15,6 +15,8 @@ import {ProductRoutingModule} from './product/product-routing.module';
 import {AppRoutingModule} from './app-routing.module';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { RegisterComponent } from './register/register.component';
+import { AddAdminComponent } from './admin/add-admin/add-admin.component';
+import {AuthenticationService} from './service/authentication.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { RegisterComponent } from './register/register.component';
     NavbarComponent,
     LoginComponent,
     AddProductComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { RegisterComponent } from './register/register.component';
     ProductRoutingModule,
     AppRoutingModule
   ],
-  providers: [ProductDataServerService],
+  providers: [ProductDataServerService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
