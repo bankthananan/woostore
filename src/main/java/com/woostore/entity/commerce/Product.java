@@ -1,4 +1,4 @@
-package com.woostore.entity;
+package com.woostore.entity.commerce;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

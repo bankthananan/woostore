@@ -13,8 +13,8 @@ public class UserDaoImpl implements UserDao {
     UserRepository userRepository;
 
     @Override
-    public void add(User user) {
-        userRepository.save(user);
+    public User add(User user) {
+        return userRepository.save(user);
     }
 
     @Override

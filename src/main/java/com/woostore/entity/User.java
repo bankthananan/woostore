@@ -1,25 +1,27 @@
 package com.woostore.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.woostore.config.json.View;
+import com.woostore.entity.commerce.Transaction;
 import com.woostore.entity.security.Authority;
 import com.woostore.entity.security.UserAuth;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Builder
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(value = "true")
 public class User {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,10 +44,12 @@ public class User {
     String phoneNumber;
 
     @JsonView(View.Auth.class)
-    @JsonManagedReference
     @OneToOne
     UserAuth userAuth;
 
+    @JsonManagedReference
+    @OneToMany
+    Set<Transaction> transactions;
 
     public List<Authority> getAuthorities(){
         return userAuth.getAuthorities();

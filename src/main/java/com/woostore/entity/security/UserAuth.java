@@ -13,13 +13,11 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USERAUTH")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@AllArgsConstructor(suppressConstructorProperties = true)
 @Data
-//@EqualsAndHashCode(exclude = "student")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserAuth {
 
@@ -28,10 +26,6 @@ public class UserAuth {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     private Long id;
-
-    @OneToOne(mappedBy = "userAuth")
-    @JsonBackReference
-    User user;
 
     @JsonView(View.Auth.class)
     @Column(name = "USERNAME", length = 50, unique = true)

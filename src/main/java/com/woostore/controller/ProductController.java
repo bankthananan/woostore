@@ -1,6 +1,6 @@
 package com.woostore.controller;
 
-import com.woostore.entity.Product;
+import com.woostore.entity.commerce.Product;
 import com.woostore.services.ProductService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;

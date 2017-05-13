@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -67,6 +68,17 @@ public class AuthenticationRestController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping(value = "${jwt.route.authentication.path}/customer")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<?> checkCustomerToken() {
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "${jwt.route.authentication.path}/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> checkAdminToken() {
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping(value = "${jwt.route.authentication.refresh}")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {

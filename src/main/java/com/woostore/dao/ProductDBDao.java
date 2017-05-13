@@ -1,6 +1,6 @@
 package com.woostore.dao;
 
-import com.woostore.entity.Product;
+import com.woostore.entity.commerce.Product;
 import com.woostore.repository.ProductRepository;
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;

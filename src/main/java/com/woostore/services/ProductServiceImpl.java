@@ -1,13 +1,11 @@
 package com.woostore.services;
 
 import com.woostore.dao.ProductDao;
-import com.woostore.entity.Product;
+import com.woostore.entity.commerce.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 
 @Service
