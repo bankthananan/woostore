@@ -18,6 +18,14 @@
 
           </span>
 
+          <!--<span *ngIf="isLogin() && hasRole('admin')">-->
+            <!--<li routerLinkActive="active">-->
+              <!--<a routerLink="/list-transaction">-->
+                <!--Transactions-->
+              <!--</a>-->
+            <!--</li>-->
+          <!--</span>-->
+
           <span *ngIf="!isLogin()">
 
             <li routerLinkActive="active">
@@ -38,7 +46,7 @@
 
             <li>
               <a>
-                Welcome {{ user.firstName }} {{ user.lastName }}
+                Welcome {{ user?.firstName }} {{ user?.lastName }}
               </a>
             </li>
 

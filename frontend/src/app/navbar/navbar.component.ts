@@ -24,6 +24,10 @@ export class NavbarComponent implements OnInit {
     return this.authenticationService.isLogin();
   }
 
+  hasRole(role: string): boolean {
+    return this.authenticationService.hasRole(role);
+  }
+
   logout(): void {
     this.authenticationService.logout();
     this.router.navigate(['']).then($ => window.location.reload());;
