@@ -7,16 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { ListProductComponent } from './product/list-product/list-product.component';
-import {ProductDataServerService} from './service/product-data-server.service';
+import {ProductService} from './service/product.service';
 import {MaterializeModule} from 'angular2-materialize/dist';
 import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './user/login/login.component';
 import {ProductRoutingModule} from './product/product-routing.module';
 import {AppRoutingModule} from './app-routing.module';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './user/register/register.component';
 import {AuthenticationService} from './service/authentication.service';
 import { DetailProductComponent } from './product/detail-product/detail-product.component';
 import { SearchProductComponent } from './product/search-product/search-product.component';
+import { ListTransactionComponent } from './admin/list-transaction/list-transaction.component';
+import {TransactionService} from './service/transaction.service';
+import { AddUserComponent } from './admin/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { SearchProductComponent } from './product/search-product/search-product.
     LoginComponent,
     RegisterComponent,
     DetailProductComponent,
-    SearchProductComponent
+    SearchProductComponent,
+    ListTransactionComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,7 @@ import { SearchProductComponent } from './product/search-product/search-product.
     ProductRoutingModule,
     AppRoutingModule
   ],
-  providers: [ProductDataServerService, AuthenticationService],
+  providers: [ProductService, TransactionService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

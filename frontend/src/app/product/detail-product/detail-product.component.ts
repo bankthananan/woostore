@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductDataServerService} from '../../service/product-data-server.service';
+import {ProductService} from '../../service/product.service';
 import {Product} from '../product';
 import {ActivatedRoute, Params} from '@angular/router';
 
@@ -10,7 +10,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 export class DetailProductComponent implements OnInit {
   product: Product;
-  constructor(private productDataService: ProductDataServerService, private route : ActivatedRoute) { }
+  constructor(private productDataService: ProductService, private route : ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.switchMap((params: Params) => this.productDataService.getProduct(+params['id'])).subscribe((product: Product) => {

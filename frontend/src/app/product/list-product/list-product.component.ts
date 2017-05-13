@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductDataServerService} from '../../service/product-data-server.service';
+import {ProductService} from '../../service/product.service';
 import {Product} from '../product';
 import {AuthenticationService} from '../../service/authentication.service';
 import {Router} from '@angular/router';
+import {TransactionService} from "app/service/transaction.service";
+import {Transaction} from '../../transaction/transaction';
 
 @Component({
   selector: 'app-list-product',
@@ -12,13 +14,13 @@ import {Router} from '@angular/router';
 export class ListProductComponent implements OnInit {
   products: Product[];
 
-  constructor(private productDataService: ProductDataServerService,
-    private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private productDataService: ProductService,
+    private authenticationService: AuthenticationService, private router: Router, private transactionService: TransactionService) { }
 
   ngOnInit() {
-    console.log(this.authenticationService.isLogin());
-    console.log(this.authenticationService.hasRole('admin'));
-
+    // console.log(this.authenticationService.isLogin());
+    // console.log(this.authenticationService.hasRole('admin'));
+    this.transactionService.getAllTransaction().subscribe((transactions: Transaction[]) => console.log(transactions));
     this.productDataService.getAllProduct()
       .subscribe(products => {
         this.products = products

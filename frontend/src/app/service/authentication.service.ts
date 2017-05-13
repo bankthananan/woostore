@@ -3,11 +3,10 @@ import {Headers, Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Rx";
 import {User} from '../user/user';
 import {Authority} from '../user/authority';
+import {wooConfig} from '../woo.config';
 
 @Injectable()
 export class AuthenticationService {
-
-  private serverUrl = 'http://localhost:8080/';
 
   public headers = new Headers({
     'Content-Type':'application/json',
@@ -18,7 +17,7 @@ export class AuthenticationService {
 
   login(username: string, password: string): Observable<boolean> {
     const headers = new Headers({'Content-Type':'application/json'})
-    return this.http.post(this.serverUrl + 'auth', JSON.stringify({ username: username, password: password }),{headers})
+    return this.http.post(wooConfig.serverPath + 'auth', JSON.stringify({ username: username, password: password }),{headers})
       .map((response: Response) => {
 
         // login successful if there's a jwt token in the response
@@ -26,7 +25,7 @@ export class AuthenticationService {
         // if have token
         if (token){
           // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser',JSON.stringify(response.json()));
+          localStorage.setItem('currentUser', JSON.stringify(response.json()));
           // return true to indicate successful login
           return true;
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../service/authentication.service';
 import {Router} from '@angular/router';
+import {User} from '../user/user';
 
 @Component({
   selector: 'app-navbar',
@@ -8,15 +9,23 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+  user: User;
+
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
-  // isLogin: boolean = this.authenticationService.isCustomerLogin;
+
   ngOnInit() {
-    // console.log("2");
-    // console.log("isLogin => "+ this.isLogin);
+    if(this.isLogin()) {
+      this.user = this.authenticationService.getUser();
+    }
   }
 
-  logout() {
+  isLogin(): boolean {
+    return this.authenticationService.isLogin();
+  }
+
+  logout(): void {
     this.authenticationService.logout();
-    this.router.navigate(['login']).then($=>window.location.reload());;
+    this.router.navigate(['']).then($ => window.location.reload());;
   }
 }
