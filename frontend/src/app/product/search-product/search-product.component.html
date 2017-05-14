@@ -1,51 +1,51 @@
-<div class="search-wrapper">
-  <div class="container">
+<div class="card">
+  <div class="card-content">
     <div class="row">
-      <!--Name or Description-->
-      <div class="row">
-        <div class="input-field col l12">
-          <input id="name-description" type="text" class="validate">
-          <label class="active" for="name-description">Search for...</label>
+      <form  materialize action="#" class="col l12">
+        <!--Search box-->
+        <div class="row">
+          <div class="input-field col l12">
+            <input id="name-description" type="text" class="validate" name="text" [(ngModel)]="search.text">
+            <label class="active" for="name-description">Search for...</label>
+          </div>
         </div>
-        <form materialize action="#" class="col l12">
-            <div class="row">
-              <div class="col l6">
-                <input type="checkbox" id="name" />
-                <label for="name">Name</label>
-              </div>
-              <div class="col l6">
-                <input type="checkbox" id="description" />
-                <label for="description">Description</label>
-              </div>
-            </div>
-        </form>
-      </div>
-      <!--Rang price-->
-      <div class="row">
-        <form materialize class="col l12">
-          <div class="row">
-            <div class="col l5 search-price-wrapper">
-              <p> PRICE </p>
-            </div>
-            <div class="input-field col l7">
-              <input id="rang-one" type="number" class="validate">
-              <label for="rang-one">from...</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field offset-l5 col l7">
-              <input id="rang-two" type="number" class="validate">
-              <label for="rang-two">to...</label>
-            </div>
-          </div>
-        </form>
-        <!--search button-->
+        <!--Search from name or description-->
         <div class="row">
           <div class="col l12">
-            <button class="btn waves-effect waves-light" type="submit" name="action"> SEARCH <i class="material-icons right">search</i></button>
+            <input type="checkbox" id="name" name="checkName" [(ngModel)]="search.name">
+            <label for="name">Name</label>
           </div>
+        </div>
+        <div class="row">
+          <div class="col l12">
+            <input type="checkbox" id="description" name="chackDescription" [(ngModel)]="search.description">
+            <label for="description">Description</label>
+          </div>
+        </div>
+        <!--Search from rang of price-->
+        <div class="row">
+          <div class="col l5 search-price-wrapper">
+            <p> PRICE </p>
+          </div>
+          <div class="input-field col l7">
+            <input id="rang-one" type="number" class="validate" name="rang-one" [(ngModel)]="search.firstPrice">
+            <label for="rang-one">from...</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field offset-l5 col l7">
+            <input id="rang-two" type="number" class="validate" name="rang-two" [(ngModel)]="search.secondPrice">
+            <label for="rang-two">to...</label>
+          </div>
+        </div>
+      </form>
+      <!--Search button-->
+      <div class="row">
+        <div class="col l12">
+          <button class="btn waves-effect waves-light" type="submit" name="action" (click)="onSearch()"> SEARCH <i class="material-icons right">search</i></button>
         </div>
       </div>
     </div>
   </div>
 </div>
+

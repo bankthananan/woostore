@@ -3,8 +3,7 @@ import {ProductService} from '../../service/product.service';
 import {Product} from '../product';
 import {AuthenticationService} from '../../service/authentication.service';
 import {Router} from '@angular/router';
-import {TransactionService} from "app/service/transaction.service";
-import {Transaction} from '../../transaction/transaction';
+import {SearchQuery} from '../search-product/search-query';
 
 @Component({
   selector: 'app-list-product',
@@ -13,7 +12,7 @@ import {Transaction} from '../../transaction/transaction';
 })
 export class ListProductComponent implements OnInit {
   products: Product[];
-
+  listProductComponent = this;
   constructor(private productDataService: ProductService,
     private authenticationService: AuthenticationService, private router: Router) { }
 
@@ -29,6 +28,11 @@ export class ListProductComponent implements OnInit {
         this.products.push(this.products[0]);
         this.products.push(this.products[0]);
       });
+  }
+
+  searchProduct(search: SearchQuery, listProductCompoent: ListProductComponent) {
+    console.log(listProductCompoent);
+    listProductCompoent.productDataService.searchProduct(search).subscribe(products => listProductCompoent.products = products);
   }
 
   viewDetail(product) {

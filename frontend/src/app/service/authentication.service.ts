@@ -74,5 +74,9 @@ export class AuthenticationService {
     return hasRole;
   }
 
+  addCustomer(customer: User) {
+    return this.http.post(wooConfig.serverPath + 'user', customer)
+      .map(res => res.json());
+  }
 
 }

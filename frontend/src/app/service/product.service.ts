@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
 import 'rxjs';
 import {wooConfig} from '../woo.config';
+import {SearchQuery} from '../product/search-product/search-query';
 
 @Injectable()
 export class ProductService {
@@ -17,4 +18,8 @@ export class ProductService {
       .map(res => res.json());
   }
 
+  searchProduct(search: SearchQuery) {
+    return this.http.post(wooConfig.serverPath + 'product/search', search)
+      .map(res => res.json());
+  }
 }

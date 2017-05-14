@@ -29,7 +29,7 @@ public class UserController {
 
     @JsonView(View.Auth.class)
     @PostMapping("/user")
-    public User addCusotmer(@RequestBody User user) {
+    public User addCustomer(@RequestBody User user) {
         return userService.addCustomer(user);
     }
 
