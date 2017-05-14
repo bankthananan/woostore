@@ -4,11 +4,12 @@ import 'rxjs';
 import {wooConfig} from '../woo.config';
 import {Observable} from 'rxjs/Observable';
 import {Transaction} from '../transaction/transaction';
+import {AuthenticationService} from "app/service/authentication.service";
 
 @Injectable()
 export class TransactionService {
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private authenticationService: AuthenticationService) {}
 
   getAllTransaction(): Observable<Transaction[]> {
     return this.http.get(wooConfig.serverPath + 'transaction').map(res => res.json());
@@ -20,6 +21,10 @@ export class TransactionService {
 
   getPaidTransaction(): Observable<Transaction[]> {
     return this.http.get(wooConfig.serverPath + 'transaction/paid').map(res => res.json());
+  }
+
+  addTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.post(wooConfig.serverPath + 'transaction', transaction, { headers: this.authenticationService.headers }).map(res => res.json());
   }
 
   // getProduct(id: number) {

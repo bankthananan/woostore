@@ -29,6 +29,12 @@
           <span>
 
             <li routerLinkActive="active">
+              <a routerLink="/manage-cart">
+                <i class="material-icons left">shopping_cart</i>Cart&nbsp;<span *ngIf="cartAmount > 0" class="new badge red">{{ cartAmount }}</span>
+              </a>
+            </li>
+
+            <li routerLinkActive="active">
               <a routerLink="/list">
                 <i class="material-icons left">view_list</i>Product List
               </a>

@@ -1,0 +1,12 @@
+img {
+  display: block;
+  object-fit: cover;
+  height: 150px;
+}
+a {
+  cursor: pointer;
+}
+h5 {
+  color: #888;
+  font-size: 1.5rem;
+}

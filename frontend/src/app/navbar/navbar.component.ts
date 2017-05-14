@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../service/authentication.service';
 import {Router} from '@angular/router';
 import {User} from '../user/user';
+import {CartService} from '../service/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,12 +13,19 @@ export class NavbarComponent implements OnInit {
 
   user: User;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {}
+  cartAmount: number = this.cartService.countItem();
+
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
     if(this.isLogin()) {
       this.user = this.authenticationService.getUser();
     }
+    this.cartService.registerNavComponent(this);
   }
 
   isLogin(): boolean {

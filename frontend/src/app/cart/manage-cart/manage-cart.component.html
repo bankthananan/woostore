@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+
+      <div class="row">
+        <div class="col s12">
+
+          <div class="card" *ngIf="!isLogin()">
+            <div class="card-content">
+              Please Login Before Purchase !!
+            </div>
+          </div>
+
+          <div class="card" *ngIf="isLogin()">
+            <div class="card-content">
+              <div>
+                <div class="row">
+                  <div class="col offset-s1 s5">
+                    <h3>
+                      {{ user.firstName }} {{ user.lastName }}
+                    </h3>
+                    <div>
+                      <h5>
+                        Phone Number
+                      </h5>
+                       {{user.phoneNumber}}
+                    </div>
+                    <div>
+                      <h5>Total Price </h5>
+                      {{getTotalPrice()  | currency:'USD':true:'1.2-2'}}
+                    </div>
+                  </div>
+                  <div class="col s5">
+                    <h5>Address</h5>
+                    {{ user.address }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="hasItem()" class="card-action">
+              &nbsp;
+              <a (click)="confirmPurchase()" class="indigo-text text-darken-4 right">
+                <i class="material-icons right">send</i>
+                CONFIRM PURCHASE
+              </a>
+              <a (click)="resetCart()" class="indigo-text text-lighten-2 right">
+                <i class="material-icons right">remove_shopping_cart</i>
+                RESET CART
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <h4>
+            Cart Items
+          </h4>
+        </div>
+        <div class="col s12">
+          <div class="row">
+            <div class="col s6" *ngFor="let item of cart.items">
+              <div class="card">
+                <div class="card-image">
+                  <img [src]="item.product.picture">
+                </div>
+                <div class="card-content">
+                  <p class="card-title" (click)="viewDetail(item)">
+                    {{item.product.name}}
+                    <br>
+                    <small>
+                      {{item.product.price | currency:'USD':true:'1.2-2'}}
+                    </small>
+                  </p>
+                  <br>
+                  <form materialize>
+                    <p class="input-field">
+                      <label for="quantity">Quantity</label>
+                      <input type="number" min="1" id="quantity" name="quantity" value="1" [(ngModel)]="item.quantity" (change)="updateCart()">
+                    </p>
+                  </form>
+                  <p>
+                    <strong>Total Price : </strong>{{ item.product.price * item.quantity| currency:'USD':true:'1.2-2' }}
+                  </p>
+                </div>
+                <div class="card-action">
+                  <a (click)="deleteItem(item)" class="indigo-text text-darken-4">
+                    <i class="material-icons left">delete</i>
+                    DELETE
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

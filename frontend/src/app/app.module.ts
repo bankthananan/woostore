@@ -23,6 +23,9 @@ import { ManageProductComponent } from './product/manage-product/manage-product.
 import { ManageTransactionComponent } from './transaction/manage-transaction/manage-transaction.component';
 import {UserRoutingModule} from './user/user-routing.module';
 import {TransactionRoutingModule} from './transaction/transaction-routing.module';
+import { ManageCartComponent } from './cart/manage-cart/manage-cart.component';
+import {CartRoutingModule} from './cart/cart-routing.module';
+import {CartService} from './service/cart.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import {TransactionRoutingModule} from './transaction/transaction-routing.module
     SearchProductComponent,
     ManageUserComponent,
     ManageProductComponent,
-    ManageTransactionComponent
+    ManageTransactionComponent,
+    ManageCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,12 +50,14 @@ import {TransactionRoutingModule} from './transaction/transaction-routing.module
     ProductRoutingModule,
     UserRoutingModule,
     TransactionRoutingModule,
+    CartRoutingModule,
     AppRoutingModule
   ],
   providers: [
     ProductService,
     TransactionService,
-    AuthenticationService
+    AuthenticationService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })

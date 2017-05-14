@@ -3,6 +3,9 @@ import {ProductService} from '../../service/product.service';
 import {Product} from '../product';
 import {ActivatedRoute, Params} from '@angular/router';
 import { Location } from '@angular/common';
+import {CartService} from '../../service/cart.service';
+
+declare var Materialize;
 
 @Component({
   selector: 'app-detail-product',
@@ -11,7 +14,12 @@ import { Location } from '@angular/common';
 })
 export class DetailProductComponent implements OnInit {
   product: Product;
-  constructor(private productDataService: ProductService, private route : ActivatedRoute, private location: Location) { }
+  constructor(
+    private productDataService: ProductService,
+    private route : ActivatedRoute,
+    private location: Location,
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
     this.route.params.switchMap((params: Params) => this.productDataService.getProduct(+params['id'])).subscribe((product: Product) => {
@@ -20,6 +28,11 @@ export class DetailProductComponent implements OnInit {
         this.product.description = 'Lorem ipsum dolor sit amet, vel libero, quisque suscipit nonummy nulla velit vitae proin, quam sed purus adipiscing, mi adipiscing consequat a molestie et. Cursus facilisis, sed etiam euismod eleifend dictum molestie, libero non, mollis ac sed, viverra eu tempor ut auctor et. Eros velit ante ligula interdum sit sed. Tempus placerat et est amet purus purus. Nulla tempor aliquam ante. Dolor pellentesque, quis penatibus congue, elit justo velit odio pede, suscipit nulla. Quis quam at ligula convallis fames cursus, aliqua sed id aliquet nam imperdiet magna, eros pellentesque a sapien nec ligula in, leo penatibus placerat dui fermentum tincidunt diam.Lorem ipsum dolor sit amet, vel libero, quisque suscipit nonummy nulla velit vitae proin, quam sed purus adipiscing, mi adipiscing consequat a molestie et. Cursus facilisis, sed etiam euismod eleifend dictum molestie, libero non, mollis ac sed, viverra eu tempor ut auctor et. Eros velit ante ligula interdum sit sed. Tempus placerat et est amet purus purus. Nulla tempor aliquam ante. Dolor pellentesque, quis penatibus congue, elit justo velit odio pede, suscipit nulla. Quis quam at ligula convallis fames cursus, aliqua sed id aliquet nam imperdiet magna, eros pellentesque a sapien nec ligula in, leo penatibus placerat dui fermentum tincidunt diam.Lorem ipsum dolor sit amet, vel libero, quisque suscipit nonummy nulla velit vitae proin, quam sed purus adipiscing, mi adipiscing consequat a molestie et. Cursus facilisis, sed etiam euismod eleifend dictum molestie, libero non, mollis ac sed, viverra eu tempor ut auctor et. Eros velit ante ligula interdum sit sed. Tempus placerat et est amet purus purus. Nulla tempor aliquam ante. Dolor pellentesque, quis penatibus congue, elit justo velit odio pede, suscipit nulla. Quis quam at ligula convallis fames cursus, aliqua sed id aliquet nam imperdiet magna, eros pellentesque a sapien nec ligula in, leo penatibus placerat dui fermentum tincidunt diam.Lorem ipsum dolor sit amet, vel libero, quisque suscipit nonummy nulla velit vitae proin, quam sed purus adipiscing, mi adipiscing consequat a molestie et. Cursus facilisis, sed etiam euismod eleifend dictum molestie, libero non, mollis ac sed, viverra eu tempor ut auctor et. Eros velit ante ligula interdum sit sed. Tempus placerat et est amet purus purus. Nulla tempor aliquam ante. Dolor pellentesque, quis penatibus congue, elit justo velit odio pede, suscipit nulla. Quis quam at ligula convallis fames cursus, aliqua sed id aliquet nam imperdiet magna, eros pellentesque a sapien nec ligula in, leo penatibus placerat dui fermentum tincidunt diam.Lorem ipsum dolor sit amet, vel libero, quisque suscipit nonummy nulla velit vitae proin, quam sed purus adipiscing, mi adipiscing consequat a molestie et. Cursus facilisis, sed etiam euismod eleifend dictum molestie, libero non, mollis ac sed, viverra eu tempor ut auctor et. Eros velit ante ligula interdum sit sed. Tempus placerat et est amet purus purus. Nulla tempor aliquam ante. Dolor pellentesque, quis penatibus congue, elit justo velit odio pede, suscipit nulla. Quis quam at ligula convallis fames cursus, aliqua sed id aliquet nam imperdiet magna, eros pellentesque a sapien nec ligula in, leo penatibus placerat dui fermentum tincidunt diam.Lorem ipsum dolor sit amet, vel libero, quisque suscipit nonummy nulla velit vitae proin, quam sed purus adipiscing, mi adipiscing consequat a molestie et. Cursus facilisis, sed etiam euismod eleifend dictum molestie, libero non, mollis ac sed, viverra eu tempor ut auctor et. Eros velit ante ligula interdum sit sed. Tempus placerat et est amet purus purus. Nulla tempor aliquam ante. Dolor pellentesque, quis penatibus congue, elit justo velit odio pede, suscipit nulla. Quis quam at ligula convallis fames cursus, aliqua sed id aliquet nam imperdiet magna, eros pellentesque a sapien nec ligula in, leo penatibus placerat dui fermentum tincidunt diam.';
       }
     })
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addProduct(product, 1);
+    Materialize.toast('Add ' + product.name + ' To Shopping Cart Complete !!', 4000);
   }
 
   back() {
