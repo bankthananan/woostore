@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Transaction} from '../transaction';
 import {TransactionService} from '../../service/transaction.service';
+import {Router} from '@angular/router';
+import {TransactionStatus} from '../transaction-status';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-manage-transaction',
@@ -10,18 +13,43 @@ import {TransactionService} from '../../service/transaction.service';
 export class ManageTransactionComponent implements OnInit {
 
   transactions: Transaction[];
+  viewStatus: TransactionStatus = null;
 
-  constructor(private transactionService: TransactionService) { }
+  constructor(private transactionService: TransactionService, private router: Router) { }
 
   ngOnInit() {
-    this.transactionService.getAllTransaction().subscribe((transactions: Transaction[]) => this.transactions = transactions);
+    this.getTransaction();
   }
 
-  truncateDesc(desc: string) {
-    if(desc.length > 50) {
-      return desc.substring(0, 47) + '...';
+  getTransaction(): void {
+    switch (this.viewStatus) {
+      case TransactionStatus.PAID:
+            this.transactionService.getPaidTransaction().subscribe(transactions => this.transactions = transactions);
+            break;
+      case TransactionStatus.PENDING:
+            this.transactionService.getPendingTransaction().subscribe(transactions => this.transactions = transactions);
+            break;
+      default:
+            this.transactionService.getAllTransaction().subscribe(transactions => this.transactions = transactions);
     }
-    return desc;
+  }
+
+  viewProductDetail(product) {
+    this.router.navigate(['detail/'+ product.id]);
+  }
+
+  changeView(viewType: string): void {
+    switch(viewType) {
+      case 'paid':
+        this.viewStatus = TransactionStatus.PAID;
+        break;
+      case 'pending':
+        this.viewStatus = TransactionStatus.PENDING;
+        break;
+      default:
+        this.viewStatus = null;
+    }
+    this.getTransaction();
   }
 
 }

@@ -30,6 +30,15 @@ public class TransactionServiceImpl implements TransactionService {
         this.urlPath = urlPath;
     }
 
+    public List<Transaction> editPictureUrl(List<Transaction> transactions) {
+        for(Transaction transaction : transactions) {
+            for(OrderItem orderItem : transaction.getItems()) {
+                orderItem.getProduct().setPicture(urlPath + orderItem.getProduct().getPicture());
+            }
+        }
+        return transactions;
+    }
+
     @Override
     public Transaction addTransaction(Transaction transaction) {
         for(OrderItem orderItem: transaction.getItems()) {
@@ -41,13 +50,18 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactions() {
-        List<Transaction> transactions = transactionDao.getTransactions();
-        for(Transaction transaction : transactions) {
-            for(OrderItem orderItem : transaction.getItems()) {
-                orderItem.getProduct().setPicture(urlPath + orderItem.getProduct().getPicture());
-            }
-        }
-        return transactionDao.getTransactions();
+    public List<Transaction> getTransactions(Date date) {
+        return editPictureUrl(transactionDao.getTransactions(date));
     }
+
+    @Override
+    public List<Transaction> getTransactionsPending(Date date) {
+        return editPictureUrl(transactionDao.getTransactionsPending(date));
+    }
+
+    @Override
+    public List<Transaction> getTransactionsPaid(Date date) {
+        return editPictureUrl(transactionDao.getTransactionsPaid(date));
+    }
+
 }

@@ -3,3 +3,6 @@ body {
   padding: 0;
   background-color: #FAFAFA;
 }
+.indicator {
+  background-color: #1a237e !important;
+}

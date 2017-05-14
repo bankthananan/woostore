@@ -2,29 +2,104 @@
   <div class="row">
     <div class="col s12">
 
-      <ul class="collapsible" data-collapsible="accordion">
+
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <form materialize>
+                <label for="date">Search by Date</label>
+                <input id="date" materialize="pickadate" type="date" class="datepicker">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col s12">
+          <ul materialize="tabs" class="tabs tabs-fixed-width">
+            <li class="tab col s4">
+              <a (click)="changeView('all')" class="indigo-text text-darken-4">ALL</a>
+            </li>
+            <li class="tab col s4">
+              <a (click)="changeView('paid')" class="indigo-text text-darken-4">PAID</a>
+            </li>
+            <li class="tab col s4">
+              <a (click)="changeView('pending')" class="indigo-text text-darken-4">PENDING</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+
+
+      <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
 
         <li *ngFor="let transaction of transactions">
           <div class="collapsible-header">
             <i class="material-icons">shopping_basket</i>
-            {{ transaction.date | date:'medium' }} / {{ transaction.status }}
+            {{ transaction.date | date:'medium' }}
+            <span class="right">
+              {{ transaction.status }}
+            </span>
           </div>
           <div class="collapsible-body">
-            <div class="col s9 m3" *ngFor="let item of transaction.items" (click)="viewDetail(product)">
-              <div class="card">
-                <div class="card-image">
-                  <img [src]="item.product.picture">
+
+            <div class="row">
+              <div class="col s12">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="row">
+                      <div class="col s6 left-side">
+                        <div>
+                          <h5>Customer Name</h5>
+                          {{ transaction.owner.firstName }} {{ transaction.owner.lastName }}
+                        </div>
+                        <hr>
+                        <div>
+                          <h5>Total Price</h5>
+                          {{transaction.totalPrice| currency:'USD':true:'1.2-2'}}
+                        </div>
+                        <hr>
+                        <div>
+                          <h5>Status</h5>
+                          {{transaction.status}}
+                        </div>
+                      </div>
+                      <div class="col s6">
+                        <h5>Payment</h5>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="card-content">
-                  {{item.product.picture}}
-            <span class="card-title">
-              {{item.product.name}}
-              <br>
-              <small>
-                {{item.product.price | currency:'USD':true:'1.2-2'}}
-              </small>
-            </span>
-                  <p>{{ truncateDesc(item.product.description) }}</p>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col s4 clickable" *ngFor="let item of transaction.items" (click)="viewProductDetail(item.product)">
+                <div class="card">
+                  <div class="card-image">
+                    <img [src]="item.product.picture">
+                  </div>
+                  <div class="card-content">
+
+                    <span class="card-title">
+                        {{item.product.name}}
+                    </span>
+                    <p>
+                      Quantity: {{item.quantity}}
+                      <br>
+                      <small>
+                        {{item.product.price * item.quantity | currency:'USD':true:'1.2-2'}}
+                      </small>
+                    </p>
+
+                  </div>
+
                 </div>
               </div>
             </div>

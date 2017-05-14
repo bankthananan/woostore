@@ -68,19 +68,28 @@ public class DataLoader implements ApplicationRunner {
 
 
         Transaction transaction = Transaction.builder().owner(user).date(new Date()).build();
-        OrderItem orderItem = OrderItem.builder().product(productDao.findById(1)).quantity(1).build();
+        OrderItem orderItem = OrderItem.builder().product(productDao.findById(1)).quantity(3).build();
         Set<OrderItem> items = new HashSet<>();
         items.add(orderItem);
         transaction.setItems(items);
         transaction.setStatus(TransactionStatus.PENDING);
 
+        Transaction transaction2 = Transaction.builder().owner(user).date(new Date()).build();
+        OrderItem orderItem2 = OrderItem.builder().product(productDao.findById(2)).quantity(6).build();
+        Set<OrderItem> items2 = new HashSet<>();
+        items2.add(orderItem2);
+        transaction2.setItems(items2);
+        transaction2.setStatus(TransactionStatus.PAID);
+
 
         Set<Transaction> transactions = new HashSet<>();
         transactions.add(transaction);
+        transactions.add(transaction2);
         user.setTransactions(transactions);
 
         userService.addAdminIn(user);
         transactionDao.addTransaction(transaction);
+        transactionDao.addTransaction(transaction2);
 
 
 

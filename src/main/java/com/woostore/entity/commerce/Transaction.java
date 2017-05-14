@@ -49,7 +49,7 @@ public class Transaction {
     public double getTotalPrice() {
         double price = 0;
         for(OrderItem item : this.items) {
-            price += item.getProduct().getPrice();
+            price += item.getProduct().getPrice() * item.getQuantity();
         }
         return price;
     }

@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col s12">
       <h2 class="header detail-header-name">
-        <a routerLink="/list">
+        <span style="cursor: pointer;" (click)="back()">
           <i class="material-icons left">arrow_back</i>
-        </a>
+        </span>
         {{product?.name}}
       </h2>
       <div class="card horizontal">

@@ -11,8 +11,15 @@ export class TransactionService {
   constructor(private http: Http) {}
 
   getAllTransaction(): Observable<Transaction[]> {
-    return this.http.get(wooConfig.serverPath + 'transaction')
-      .map(res => res.json());
+    return this.http.get(wooConfig.serverPath + 'transaction').map(res => res.json());
+  }
+
+  getPendingTransaction(): Observable<Transaction[]> {
+    return this.http.get(wooConfig.serverPath + 'transaction/pending').map(res => res.json());
+  }
+
+  getPaidTransaction(): Observable<Transaction[]> {
+    return this.http.get(wooConfig.serverPath + 'transaction/paid').map(res => res.json());
   }
 
   // getProduct(id: number) {

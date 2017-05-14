@@ -21,12 +21,15 @@ public class ProductServiceImpl implements ProductService {
         this.urlPath = urlPath;
     }
 
-    public List<Product> getProducts() {
-        List<Product> products = productDao.getProducts();
-        for(Product product : products) {
+    public List<Product> addUrlPicture(List<Product> products) {
+        for (Product product : products) {
             product.setPicture(urlPath + product.getPicture());
         }
         return products;
+    }
+
+    public List<Product> getProducts() {
+        return addUrlPicture(productDao.getProducts());
     }
 
     public Product findById(long id) {
@@ -48,6 +51,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> searchProduct(SearchProductQuery searchProductQuery) {
-        return productDao.searchProduct(searchProductQuery);
+        return addUrlPicture(productDao.searchProduct(searchProductQuery));
     }
 }
