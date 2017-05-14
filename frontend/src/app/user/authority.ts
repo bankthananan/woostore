@@ -1,4 +1,4 @@
-import {AuthorityName} from './authorityName';
+import {AuthorityName} from './authority-name';
 export class Authority {
   name: AuthorityName;
 }

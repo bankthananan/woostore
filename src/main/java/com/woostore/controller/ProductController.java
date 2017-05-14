@@ -1,6 +1,7 @@
 package com.woostore.controller;
 
 import com.woostore.entity.commerce.Product;
+import com.woostore.entity.commerce.SearchProductQuery;
 import com.woostore.services.ProductService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,13 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable("id") long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("/product/search")
+    public List<Product> searchProduct(@RequestBody SearchProductQuery searchProductQuery) {
+        System.out.println(searchProductQuery);
+        return productService.searchProduct(searchProductQuery);
     }
 
 }

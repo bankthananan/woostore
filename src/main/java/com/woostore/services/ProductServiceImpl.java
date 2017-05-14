@@ -2,6 +2,7 @@ package com.woostore.services;
 
 import com.woostore.dao.ProductDao;
 import com.woostore.entity.commerce.Product;
+import com.woostore.entity.commerce.SearchProductQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         productDao.deleteProduct(id);
+    }
+
+    @Override
+    public List<Product> searchProduct(SearchProductQuery searchProductQuery) {
+        return productDao.searchProduct(searchProductQuery);
     }
 }

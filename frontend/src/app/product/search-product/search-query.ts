@@ -1,4 +1,4 @@
-export class Search {
+export class SearchQuery {
   text: string
   name: boolean
   description: boolean

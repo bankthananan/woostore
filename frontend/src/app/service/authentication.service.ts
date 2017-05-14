@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Rx";
 import {User} from '../user/user';
 import {Authority} from '../user/authority';
 import {wooConfig} from '../woo.config';
-import {AuthorityName} from '../user/authorityName';
+import {AuthorityName} from '../user/authority-name';
 
 @Injectable()
 export class AuthenticationService {

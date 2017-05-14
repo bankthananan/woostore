@@ -31,7 +31,9 @@ public class Transaction {
 
     @Cascade(CascadeType.ALL)
     @OneToMany
-    Set<OrderItem> items = new HashSet<>();
+    Set<OrderItem> items;
+
+    TransactionStatus status;
 
     @ManyToOne
     User owner;

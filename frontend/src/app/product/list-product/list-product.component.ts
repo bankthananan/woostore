@@ -15,12 +15,11 @@ export class ListProductComponent implements OnInit {
   products: Product[];
 
   constructor(private productDataService: ProductService,
-    private authenticationService: AuthenticationService, private router: Router, private transactionService: TransactionService) { }
+    private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
     // console.log(this.authenticationService.isLogin());
     // console.log(this.authenticationService.hasRole('admin'));
-    this.transactionService.getAllTransaction().subscribe((transactions: Transaction[]) => console.log(transactions));
     this.productDataService.getAllProduct()
       .subscribe(products => {
         this.products = products;
@@ -38,9 +37,9 @@ export class ListProductComponent implements OnInit {
 
   truncateDesc(desc: string) {
     if(desc.length > 50) {
-      return desc.substring(0, 47) + '...'
+      return desc.substring(0, 47) + '...';
     }
-    return desc
+    return desc;
   }
 
 }

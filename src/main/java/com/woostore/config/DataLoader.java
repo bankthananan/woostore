@@ -7,6 +7,7 @@ import com.woostore.entity.User;
 import com.woostore.entity.commerce.OrderItem;
 import com.woostore.entity.commerce.Product;
 import com.woostore.entity.commerce.Transaction;
+import com.woostore.entity.commerce.TransactionStatus;
 import com.woostore.entity.security.Authority;
 import com.woostore.entity.security.AuthorityName;
 import com.woostore.entity.security.UserAuth;
@@ -71,6 +72,7 @@ public class DataLoader implements ApplicationRunner {
         Set<OrderItem> items = new HashSet<>();
         items.add(orderItem);
         transaction.setItems(items);
+        transaction.setStatus(TransactionStatus.PENDING);
         transactionDao.addTransaction(transaction);
 
     }

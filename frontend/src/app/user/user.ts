@@ -1,4 +1,4 @@
-import {UserAuth} from './userAuth';
+import {UserAuth} from './user-auth';
 export class User {
   firstName: string;
   lastName: string;
