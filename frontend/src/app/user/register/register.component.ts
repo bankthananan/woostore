@@ -3,6 +3,8 @@ import {User} from '../user';
 import {AuthenticationService} from '../../service/authentication.service';
 import {UserAuth} from '../user-auth';
 
+declare var Materialize: any;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -21,7 +23,11 @@ export class RegisterComponent implements OnInit {
     this.authenticationService.addCustomer(this.customer).subscribe(
       res => {
         console.log("register=>" + res);
-      }
-    )
+        if(res) {
+          this.authenticationService.login(res.user.userAuth.username, res.user.userAuth.password);
+        }
+      }, (error) => Materialize.toast(error, 4000)
+    );
   }
+
 }

@@ -8,4 +8,5 @@ public interface UserService {
     User addCustomer(User user);
     User addAdmin(User user);
     User getUserByUsername(String username);
+    User addAdminIn(User user);
 }

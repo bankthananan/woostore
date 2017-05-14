@@ -62,10 +62,10 @@ public class DataLoader implements ApplicationRunner {
         authorityRepository.save(auth3);
 
 
-        User user = User.builder().firstName("Zenon").lastName("SI").address("AAA").phoneNumber("001").build();
-        user.setUserAuth(UserAuth.builder().username("zenon").password("zenon").build());
+        User user = User.builder().firstName("Zenon").lastName("SI").address("AAA").phoneNumber("001").userAuth(UserAuth.builder().username("zenon").password("zenon").build()).build();
 
-        userService.addAdmin(user);
+
+
 
         Transaction transaction = Transaction.builder().owner(user).date(new Date()).build();
         OrderItem orderItem = OrderItem.builder().product(productDao.findById(1)).quantity(1).build();
@@ -73,7 +73,16 @@ public class DataLoader implements ApplicationRunner {
         items.add(orderItem);
         transaction.setItems(items);
         transaction.setStatus(TransactionStatus.PENDING);
+
+
+        Set<Transaction> transactions = new HashSet<>();
+        transactions.add(transaction);
+        user.setTransactions(transactions);
+
+        userService.addAdminIn(user);
         transactionDao.addTransaction(transaction);
+
+
 
     }
 }

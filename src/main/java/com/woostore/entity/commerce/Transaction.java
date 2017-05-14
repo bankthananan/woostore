@@ -22,6 +22,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "owner")
 @JsonIgnoreProperties(value = "true")
 public class Transaction {
 
@@ -35,6 +36,7 @@ public class Transaction {
 
     TransactionStatus status;
 
+//    @JsonBackReference(value = "abcd1")
     @ManyToOne
     User owner;
 

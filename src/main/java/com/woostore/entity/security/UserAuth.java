@@ -48,6 +48,7 @@ public class UserAuth {
     private Date lastPasswordResetDate;
 
     @JsonView(View.Auth.class)
+//    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_AUTHORITY",

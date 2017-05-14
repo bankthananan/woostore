@@ -30,7 +30,7 @@ public class Authority {
     @JsonView(View.Auth.class)
     private AuthorityName name;
 
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
     private List<UserAuth> userAuths;
 
@@ -50,11 +50,11 @@ public class Authority {
         this.name = name;
     }
 
-    public List<UserAuth> getUserAuths() {
-        return userAuths;
-    }
-
-    public void setUserAuths(List<UserAuth> userAuths) {
-        this.userAuths = userAuths;
-    }
+//    public List<UserAuth> getUserAuths() {
+//        return userAuths;
+//    }
+//
+//    public void setUserAuths(List<UserAuth> userAuths) {
+//        this.userAuths = userAuths;
+//    }
 }

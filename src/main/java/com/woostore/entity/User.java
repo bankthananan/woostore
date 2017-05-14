@@ -1,9 +1,6 @@
 package com.woostore.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import com.woostore.config.json.View;
 import com.woostore.entity.commerce.Transaction;
 import com.woostore.entity.security.Authority;
@@ -25,6 +22,7 @@ public class User {
 
     @JsonView(View.Auth.class)
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
@@ -45,11 +43,14 @@ public class User {
     String phoneNumber;
 
     @JsonView(View.Auth.class)
+    @NonNull
     @OneToOne
     UserAuth userAuth;
 
-    @JsonBackReference
-    @OneToMany
+    @JsonIgnore
+//    @JsonManagedReference(value = "abcd1")
+//    @JsonBackReference
+    @OneToMany(mappedBy = "owner")
     Set<Transaction> transactions;
 
     public List<Authority> getAuthorities(){
