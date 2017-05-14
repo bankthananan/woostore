@@ -79,4 +79,9 @@ export class AuthenticationService {
       .map(res => res.json());
   }
 
+  getAllUser() {
+    return this.http.get(wooConfig.serverPath + 'user', {headers: this.headers})
+      .map(res => res.json());
+  }
+
 }

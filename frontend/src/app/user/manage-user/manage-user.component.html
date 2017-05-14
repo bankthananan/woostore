@@ -6,23 +6,23 @@
           <form materialize>
             <div class="row">
               <div class="input-field col l6">
-                <input id="firstName" type="text" class="validate" name="firstname" [(ngModel)]="userForm.firstName">
+                <input placeholder="First Name" id="firstName" type="text" class="validate" name="firstname" [(ngModel)]="userForm.firstName">
                 <label for="firstName">First Name</label>
               </div>
               <div class="input-field col l6">
-                <input id="lastName" type="text" class="validate" name="lastname" [(ngModel)]="userForm.lastNames">
+                <input placeholder="Last Name" id="lastName" type="text" class="validate" name="lastname" [(ngModel)]="userForm.lastName">
                 <label for="lastName">Last Name</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col l12">
-                <input id="username" type="text" class="validate" name="username">
+                <input placeholder="Username" id="username" type="text" class="validate" name="username" [(ngModel)]="userForm.userAuth.username">
                 <label for="username">Username</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col l12">
-                <input id="password" type="password" class="validate" name="password">
+                <input placeholder="Password" id="password" type="password" class="validate" name="password" [(ngModel)]="userForm.userAuth.password">
                 <label for="password">Password</label>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <form class="col s12">
                 <div class="row">
                   <div class="input-field col l12">
-                    <textarea id="address" class="materialize-textarea" name="address"></textarea>
+                    <textarea placeholder="Address" id="address" class="materialize-textarea" name="address" [(ngModel)]="userForm.address"></textarea>
                     <label for="address">Address</label>
                   </div>
                 </div>
@@ -38,16 +38,16 @@
             </div>
             <div class="row">
               <div class="input-field col l12">
-                <input id="icon_telephone" type="tel" class="validate" name="phonenumber">
+                <input placeholder="Telephone Number" id="icon_telephone" type="tel" class="validate" name="phonenumber" [(ngModel)]="userForm.phoneNumber">
                 <label for="icon_telephone">Telephone Number</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 right-align">
-                <button name="resetButton" class="btn waves-effect waves-light blue-grey lighten-5 black-text" type="reset">
+                <button name="resetButton" class="btn waves-effect waves-light blue-grey lighten-5 black-text" type="reset" (click)="reset()">
                   RESET
                 </button>
-                <button name="addButton" class="btn waves-effect waves-light" type="submit" name="action">
+                <button name="addButton" class="btn waves-effect waves-light" type="submit" name="action"> {{!userForm.userAuth.password? 'ADD' : 'UPDATE'}}
                   <i class="material-icons right">send</i>
                 </button>
               </div>
@@ -61,12 +61,13 @@
   <div class="row">
     <div class="col s12">
       <ul class="collection with-header">
-        <li class="collection-item">
+        <li class="collection-item" *ngFor="let user of users">
           <div>
+            {{user.firstName}}
             <a class="secondary-content">
               <i class="material-icons">delete</i>
             </a>
-            <a class="secondary-content">
+            <a (click)="edit(user)" class="secondary-content">
               <i class="material-icons">edit</i>
             </a>
           </div>
