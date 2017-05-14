@@ -17,9 +17,12 @@ import { RegisterComponent } from './user/register/register.component';
 import {AuthenticationService} from './service/authentication.service';
 import { DetailProductComponent } from './product/detail-product/detail-product.component';
 import { SearchProductComponent } from './product/search-product/search-product.component';
-import { ListTransactionComponent } from './admin/list-transaction/list-transaction.component';
 import {TransactionService} from './service/transaction.service';
-import { AddUserComponent } from './admin/add-user/add-user.component';
+import { ManageUserComponent } from './user/manage-user/manage-user.component';
+import { ManageProductComponent } from './product/manage-product/manage-product.component';
+import { ManageTransactionComponent } from './transaction/manage-transaction/manage-transaction.component';
+import {UserRoutingModule} from './user/user-routing.module';
+import {TransactionRoutingModule} from './transaction/transaction-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,8 +33,9 @@ import { AddUserComponent } from './admin/add-user/add-user.component';
     RegisterComponent,
     DetailProductComponent,
     SearchProductComponent,
-    ListTransactionComponent,
-    AddUserComponent
+    ManageUserComponent,
+    ManageProductComponent,
+    ManageTransactionComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +44,15 @@ import { AddUserComponent } from './admin/add-user/add-user.component';
     BrowserAnimationsModule,
     MaterializeModule,
     ProductRoutingModule,
+    UserRoutingModule,
+    TransactionRoutingModule,
     AppRoutingModule
   ],
-  providers: [ProductService, TransactionService, AuthenticationService],
+  providers: [
+    ProductService,
+    TransactionService,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

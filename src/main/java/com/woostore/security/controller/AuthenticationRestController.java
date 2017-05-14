@@ -68,17 +68,17 @@ public class AuthenticationRestController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping(value = "${jwt.route.authentication.path}/customer")
-    @PreAuthorize("hasRole('CUSTOMER')")
-    public ResponseEntity<?> checkCustomerToken() {
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping(value = "${jwt.route.authentication.path}/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> checkAdminToken() {
-        return ResponseEntity.ok().build();
-    }
+//    @GetMapping(value = "${jwt.route.authentication.path}/customer")
+//    @PreAuthorize("hasRole('CUSTOMER')")
+//    public ResponseEntity<?> checkCustomerToken() {
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @GetMapping(value = "${jwt.route.authentication.path}/admin")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> checkAdminToken() {
+//        return ResponseEntity.ok().build();
+//    }
 
     @GetMapping(value = "${jwt.route.authentication.refresh}")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {

@@ -1,42 +1,53 @@
+<ul id="controlPanel" class="dropdown-content">
+
+  <span *ngIf="hasRole('staff')">
+    <li>
+      <a routerLink="/manage-transactions">Transactions</a>
+    </li>
+    <li>
+      <a routerLink="/manage-product">Manage Product</a>
+    </li>
+  </span>
+
+  <span *ngIf="hasRole('admin')">
+    <li class="divider"></li>
+    <li>
+      <a routerLink="/manage-user">Manage User</a>
+    </li>
+  </span>
+
+</ul>
 <nav class="indigo darken-4">
   <div class="row">
     <div class="col s12">
       <div class="nav-wrapper">
 
-        <a href="#" class="brand-logo">&nbsp;&nbsp;Woo Store</a>
+        <a>Woo Store</a>
 
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ul class="right">
 
           <span>
 
             <li routerLinkActive="active">
               <a routerLink="/list">
-                Product List
+                <i class="material-icons left">view_list</i>Product List
               </a>
             </li>
 
 
           </span>
 
-          <!--<span *ngIf="isLogin() && hasRole('admin')">-->
-            <!--<li routerLinkActive="active">-->
-              <!--<a routerLink="/list-transaction">-->
-                <!--Transactions-->
-              <!--</a>-->
-            <!--</li>-->
-          <!--</span>-->
-
           <span *ngIf="!isLogin()">
 
             <li routerLinkActive="active">
               <a routerLink="/login">
-                Login
+                <i class="material-icons left">developer_board</i>Login
               </a>
             </li>
 
             <li *ngIf="!isLogin()" routerLinkActive="active">
               <a routerLink="/register">
-                Register
+                <i class="material-icons left">person_add</i>Register
               </a>
             </li>
 
@@ -46,16 +57,25 @@
 
             <li>
               <a>
-                Welcome {{ user?.firstName }} {{ user?.lastName }}
+                <small>Welcome</small> {{ user?.firstName }} {{ user?.lastName }}<br>
               </a>
             </li>
 
             <li (click)="logout()">
               <a>
-                Logout
+                <i class="material-icons left">open_in_browser</i>Logout
               </a>
             </li>
 
+          </span>
+
+
+          <span *ngIf="isLogin() && hasRole('staff')">
+            <li>
+              <a class="dropdown-button" href="#!" data-activates="controlPanel">
+                Control Panel<i class="material-icons right">arrow_drop_down_circle</i>
+              </a>
+            </li>
           </span>
 
         </ul>

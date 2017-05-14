@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Rx";
 import {User} from '../user/user';
 import {Authority} from '../user/authority';
 import {wooConfig} from '../woo.config';
+import {AuthorityName} from '../user/authorityName';
 
 @Injectable()
 export class AuthenticationService {
@@ -64,7 +65,8 @@ export class AuthenticationService {
     if(user) {
       role = role.toUpperCase();
       user.userAuth.authorities.forEach((authority: Authority) => {
-        if(authority.name === 'ROLE_' + role) {
+        const roleAuthorityName : AuthorityName = <AuthorityName>AuthorityName[('ROLE_' + role)];
+        if(AuthorityName[authority.name] === AuthorityName[roleAuthorityName]) {
           hasRole = true;
         }
       });

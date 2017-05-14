@@ -1,3 +1,4 @@
+import {AuthorityName} from './authorityName';
 export class Authority {
-  name: string;
+  name: AuthorityName;
 }

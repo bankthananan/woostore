@@ -1,9 +1,17 @@
+img {
+  display: block;
+  object-fit: cover;
+}
 .detail-header-name {
   font-size: 30px;
 }
-.detail-content {
-  font-weight: bold;
+.detail-content h5 {
+  color: #888;
 }
 .detail-text-shopping-cart {
   text-align: center;
+}
+.card.horizontal .card-image img {
+  height: 100%;
+  width: 100%;
 }

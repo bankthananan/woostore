@@ -53,10 +53,12 @@ public class DataLoader implements ApplicationRunner {
 
 
         Authority auth1 = Authority.builder().name(AuthorityName.ROLE_CUSTOMER).build();
-        Authority auth2 = Authority.builder().name(AuthorityName.ROLE_ADMIN).build();
+        Authority auth2 = Authority.builder().name(AuthorityName.ROLE_STAFF).build();
+        Authority auth3 = Authority.builder().name(AuthorityName.ROLE_ADMIN).build();
 
         authorityRepository.save(auth1);
         authorityRepository.save(auth2);
+        authorityRepository.save(auth3);
 
 
         User user = User.builder().firstName("Zenon").lastName("SI").address("AAA").phoneNumber("001").build();

@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     public User addAdmin(User user) {
         user.getUserAuth().setAuthorities(new ArrayList<>());
         user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_CUSTOMER));
+        user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_STAFF));
         user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_ADMIN));
         user.getUserAuth().setPassword(new BCryptPasswordEncoder().encode(user.getUserAuth().getPassword()));
         user.getUserAuth().setEnabled(true);
