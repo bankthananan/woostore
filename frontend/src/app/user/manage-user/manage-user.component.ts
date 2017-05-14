@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from '../user';
 
 @Component({
   selector: 'app-manage-user',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-user.component.css']
 })
 export class ManageUserComponent implements OnInit {
+  userForm: User = new User();
 
   constructor() { }
 

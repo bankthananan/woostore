@@ -27,6 +27,8 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+//    /user for admin use only
+
     @JsonView(View.Auth.class)
     @PostMapping("/user")
     public User addCustomer(@RequestBody User user) {
