@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TransactionService} from '../../service/transaction.service';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Transaction} from '../transaction';
 import {WooPayment} from '../woo-payment';
 import {TransactionStatus} from '../transaction-status';
@@ -19,7 +19,8 @@ export class DetailTransactionComponent implements OnInit {
 
   constructor(
     private transactionService: TransactionService,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -48,8 +49,19 @@ export class DetailTransactionComponent implements OnInit {
     }
   }
 
+
+  payByPayPal() {
+    this.transactionService.payByPayPal(this.transaction).subscribe((url) => {
+      window.location.href = url;
+    });
+  }
+
+  isPayPal(transaction: Transaction) {
+    return this.isPaid(transaction) && transaction.wooPayment.wooPaymentType === WooPaymentType.PAYPAL;
+  }
+
   isWireTransfer(transaction: Transaction): boolean {
-    return transaction.status === TransactionStatus.PAID && transaction.wooPayment.wooPaymentType === WooPaymentType.WIRE_TRANSFER ;
+    return this.isPaid(transaction) && transaction.wooPayment.wooPaymentType === WooPaymentType.WIRE_TRANSFER ;
   }
 
   isPaid(transaction: Transaction): boolean {

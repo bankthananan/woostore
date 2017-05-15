@@ -17,6 +17,11 @@ jwt:
       refresh: refresh
 image:
   receiptPath: 'receipt/'
+paypal:
+  mode: sandbox
+  client:
+    app: AWI3P3RoATfuQ0urPRAFpWvjkh4L63I8-GrBRhJR6-v7dtwUB7YTEpufHjNvxgjUOtHutM1QH9RVSRjS
+    secret: EKqmg_QXsJZOfTDo8EO5P2d6x6F_QUyZ1GT94nfM9IlOW13VDFJXaDNFzaEli2miIVyUOdMpdI634_zG
 ---
 spring:
   profiles: zenon

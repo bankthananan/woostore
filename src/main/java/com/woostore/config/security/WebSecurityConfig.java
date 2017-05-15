@@ -69,6 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/product/**").hasRole("STAFF")
 
                 .antMatchers("/transaction/**").permitAll()
+                .antMatchers("/pay/**").permitAll()
+
                 .antMatchers(HttpMethod.POST, "/user").permitAll()
                 .antMatchers(HttpMethod.GET, "/user").permitAll()
                 .antMatchers("/auth/**","/h2-console/**","/refresh").permitAll()

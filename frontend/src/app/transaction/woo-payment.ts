@@ -3,5 +3,5 @@ export class WooPayment {
   id: number;
   wooPaymentType: WooPaymentType;
   fileName: string;
-  paypalPaymentId: string;
+  paypalPaymentID: string;
 };

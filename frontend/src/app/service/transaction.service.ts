@@ -70,6 +70,13 @@ export class TransactionService {
       });
   }
 
+  payByPayPal(transaction: Transaction): Observable<string> {
+    let headers = this.authenticationService.headers;
+    let options = new RequestOptions({headers: headers, method: 'post'});
+    let body = JSON.stringify(transaction);
+    return this.http.post(wooConfig.serverPath + 'pay', body, options).map(res => res.text());
+  }
+
   // getProduct(id: number) {
   //   return this.http.get(wooConfig.serverPath + 'product/' + id)
   //     .map(res => res.json());
