@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
     List<Transaction> findByStatus(TransactionStatus status);
-    List<Transaction> findByDateEquals(Date date);
-    List<Transaction> findByStatusAndDate(TransactionStatus status, Date date);
+    List<Transaction> findByDateAfterAndDateBefore(Date dateStart, Date dateEnd);
+    List<Transaction> findByStatusAndDateAfterAndDateBefore(TransactionStatus status, Date dateStart, Date dateEnd);
 }

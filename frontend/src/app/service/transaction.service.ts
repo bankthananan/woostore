@@ -11,16 +11,28 @@ export class TransactionService {
 
   constructor(private http: Http, private authenticationService: AuthenticationService) {}
 
-  getAllTransaction(): Observable<Transaction[]> {
-    return this.http.get(wooConfig.serverPath + 'transaction').map(res => res.json());
+  getAllTransaction(date: Date): Observable<Transaction[]> {
+    let url = wooConfig.serverPath + 'transaction';
+    if(date) {
+      url += '/' + date.getTime() / 1000;
+    }
+    return this.http.get(url).map(res => res.json());
   }
 
-  getPendingTransaction(): Observable<Transaction[]> {
-    return this.http.get(wooConfig.serverPath + 'transaction/pending').map(res => res.json());
+  getPendingTransaction(date: Date): Observable<Transaction[]> {
+    let url = wooConfig.serverPath + 'transaction/pending';
+    if(date) {
+      url += '/' + date.getTime() / 1000;
+    }
+    return this.http.get(url).map(res => res.json());
   }
 
-  getPaidTransaction(): Observable<Transaction[]> {
-    return this.http.get(wooConfig.serverPath + 'transaction/paid').map(res => res.json());
+  getPaidTransaction(date: Date): Observable<Transaction[]> {
+    let url = wooConfig.serverPath + 'transaction/paid';
+    if(date) {
+      url += '/' + date.getTime() / 1000;
+    }
+    return this.http.get(url).map(res => res.json());
   }
 
   addTransaction(transaction: Transaction): Observable<Transaction> {

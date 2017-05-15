@@ -15,6 +15,22 @@ public class TransactionDaoImpl implements TransactionDao {
     @Autowired
     TransactionRepository transactionRepository;
 
+    private Date getStartDate(Date date) {
+        Date startDate = (Date) date.clone();
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        startDate.setSeconds(0);
+        return startDate;
+    }
+
+    private Date getEndDate(Date date) {
+        Date endDate = (Date) date.clone();
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        endDate.setSeconds(59);
+        return endDate;
+    }
+
     @Override
     public Transaction addTransaction(Transaction transaction) {
         return transactionRepository.save(transaction);
@@ -25,7 +41,8 @@ public class TransactionDaoImpl implements TransactionDao {
         if(date == null) {
             return Lists.newArrayList(transactionRepository.findAll());
         }
-        return transactionRepository.findByDateEquals(date);
+
+        return transactionRepository.findByDateAfterAndDateBefore(getStartDate(date), getEndDate(date));
     }
 
     @Override
@@ -33,7 +50,7 @@ public class TransactionDaoImpl implements TransactionDao {
         if(date == null) {
             return transactionRepository.findByStatus(TransactionStatus.PENDING);
         }
-        return transactionRepository.findByStatusAndDate(TransactionStatus.PENDING, date);
+        return transactionRepository.findByStatusAndDateAfterAndDateBefore(TransactionStatus.PENDING, getStartDate(date), getEndDate(date));
     }
 
     @Override
@@ -41,6 +58,6 @@ public class TransactionDaoImpl implements TransactionDao {
         if(date == null) {
             return transactionRepository.findByStatus(TransactionStatus.PAID);
         }
-        return transactionRepository.findByStatusAndDate(TransactionStatus.PAID, date);
+        return transactionRepository.findByStatusAndDateAfterAndDateBefore(TransactionStatus.PAID, getStartDate(date), getEndDate(date));
     }
 }

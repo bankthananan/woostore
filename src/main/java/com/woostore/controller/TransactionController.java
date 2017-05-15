@@ -34,9 +34,6 @@ public class TransactionController {
     @GetMapping("transaction/{timestamp}")
     public List<Transaction> getTransactions(@PathVariable("timestamp") String timestamp) {
         Date date = Date.from( Instant.ofEpochSecond( Long.parseLong(timestamp) ) );
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
         System.out.println(date);
         return transactionService.getTransactions(date);
     }

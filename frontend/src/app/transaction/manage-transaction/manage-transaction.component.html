@@ -9,7 +9,7 @@
             <div class="card-content">
               <form materialize>
                 <label for="date">Search by Date</label>
-                <input id="date" materialize="pickadate" type="date" class="datepicker">
+                <input id="date" materialize="pickadate" name="searchDate" type="date" class="datepicker" [materializeParams]="[{ format: 'yyyy-mm-dd', closeOnSelect: true }]" (input)="searchByDate($event)" [value]="datePicker | date: 'yyyy-MM-dd'">
               </form>
             </div>
           </div>

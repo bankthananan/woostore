@@ -14,6 +14,7 @@ export class ManageTransactionComponent implements OnInit {
 
   transactions: Transaction[];
   viewStatus: TransactionStatus = null;
+  searchDate: Date;
 
   constructor(private transactionService: TransactionService, private router: Router) { }
 
@@ -21,16 +22,27 @@ export class ManageTransactionComponent implements OnInit {
     this.getTransaction();
   }
 
+  searchByDate(event) {
+    const searchDate = event.target.value;
+    if(searchDate == "") {
+      this.searchDate = null;
+    }
+    else {
+      this.searchDate = new Date(searchDate);
+    }
+    this.getTransaction();
+  }
+
   getTransaction(): void {
     switch (this.viewStatus) {
       case TransactionStatus.PAID:
-            this.transactionService.getPaidTransaction().subscribe(transactions => this.transactions = transactions);
+            this.transactionService.getPaidTransaction(this.searchDate).subscribe(transactions => this.transactions = transactions);
             break;
       case TransactionStatus.PENDING:
-            this.transactionService.getPendingTransaction().subscribe(transactions => this.transactions = transactions);
+            this.transactionService.getPendingTransaction(this.searchDate).subscribe(transactions => this.transactions = transactions);
             break;
       default:
-            this.transactionService.getAllTransaction().subscribe(transactions => this.transactions = transactions);
+            this.transactionService.getAllTransaction(this.searchDate).subscribe(transactions => this.transactions = transactions);
     }
   }
 
