@@ -3,12 +3,14 @@ package com.woostore.entity.commerce.payment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.woostore.entity.commerce.Transaction;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 @JsonIgnoreProperties(value = "true")
 public class WooPayment {
 
@@ -17,16 +19,11 @@ public class WooPayment {
     @NonNull
     long id;
 
-    long wooPaymentTypeID;
+    WooPaymentType wooPaymentType;
 
-    @NonNull
-    WooPaymentStatus wooPaymentStatus;
+    String fileName;
 
-    @OneToOne
-    @NonNull
-    Transaction transaction;
-
-
+    String paypalPaymentID;
 
 
 }

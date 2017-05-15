@@ -26,6 +26,7 @@ import {TransactionRoutingModule} from './transaction/transaction-routing.module
 import { ManageCartComponent } from './cart/manage-cart/manage-cart.component';
 import {CartRoutingModule} from './cart/cart-routing.module';
 import {CartService} from './service/cart.service';
+import { DetailTransactionComponent } from './transaction/detail-transaction/detail-transaction.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {CartService} from './service/cart.service';
     ManageProductComponent,
     ManageTransactionComponent,
     ManageCartComponent,
+    DetailTransactionComponent,
   ],
   imports: [
     BrowserModule,

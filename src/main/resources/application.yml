@@ -15,23 +15,25 @@ jwt:
     authentication:
       path: auth
       refresh: refresh
+image:
+  receiptPath: 'receipt/'
 ---
 spring:
   profiles: zenon
 image:
-  urlPath: 'http://localhost:8080/product/image/'
+  urlPath: 'http://localhost:8080/'
   dirPath: '/Users/zenon/Desktop/woostore/images/'
 ---
 spring:
   profiles: zenonnb
 image:
-  urlPath: 'http://localhost:8080/product/image/'
+  urlPath: 'http://localhost:8080/'
   dirPath: 'C:\Users\sizen\Desktop\Projects\woostore\images\'
 ---
 spring:
   profiles: iammiind
 image:
-  urlPath: 'http://localhost:8080/product/image/'
+  urlPath: 'http://localhost:8080/'
   dirPath: '/Users/iammiind/Desktop/woostore/images/'
 ---
 spring:

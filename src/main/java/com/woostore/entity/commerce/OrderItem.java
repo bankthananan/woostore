@@ -1,6 +1,7 @@
 package com.woostore.entity.commerce;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 

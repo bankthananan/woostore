@@ -60,4 +60,9 @@ public class TransactionDaoImpl implements TransactionDao {
         }
         return transactionRepository.findByStatusAndDateAfterAndDateBefore(TransactionStatus.PAID, getStartDate(date), getEndDate(date));
     }
+
+    @Override
+    public Transaction findById(long id) {
+        return transactionRepository.findOne(id);
+    }
 }

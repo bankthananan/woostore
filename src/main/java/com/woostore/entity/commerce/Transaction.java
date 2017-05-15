@@ -40,7 +40,8 @@ public class Transaction {
     @ManyToOne
     User owner;
 
-    @OneToOne(mappedBy = "transaction")
+    @Cascade(CascadeType.ALL)
+    @OneToOne
     WooPayment wooPayment;
 
     @Temporal(TemporalType.TIMESTAMP)

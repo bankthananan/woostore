@@ -1,4 +1,5 @@
 package com.woostore.entity.commerce.payment;
 
-public interface WooPaymentType {
+public enum WooPaymentType {
+    WIRE_TRANSFER, PAYPAL
 }

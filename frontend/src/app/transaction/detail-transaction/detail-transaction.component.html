@@ -1,0 +1,142 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+
+
+      <ul *ngIf="transaction" materialize="collapsible" class="collapsible" data-collapsible="accordion">
+
+        <li>
+          <div class="collapsible-header active">
+            <i class="material-icons">shopping_basket</i>
+            {{ transaction.date | date:'medium' }}
+            <span class="right">
+              {{ transaction.status }}
+            </span>
+          </div>
+          <div class="collapsible-body">
+
+            <div class="row" *ngIf="isWireTransfer(transaction)">
+              <div class="col s12">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="row">
+                      <div class="col s12">
+                        <h5>
+                          Pay By Wire Transfer
+                        </h5>
+                        <img [src]="transaction.wooPayment.fileName" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="!isPaid(transaction)">
+              <div class="col s12">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="row">
+                      <div class="col s7 left-side">
+                        <h5>
+                          Pay By Wire Transfer
+                        </h5>
+                        <form name="payWireTransfer" materialize (submit)="payByWireTransfer()">
+                          <div>
+                            Wire Transfer Information
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dicta error explicabo iure nesciunt perspiciatis, placeat temporibus ut. Aspernatur, iusto, unde. Excepturi maiores repellendus voluptatibus! Ab adipisci dicta nulla provident.
+                          </div>
+                          <div class="file-field input-field">
+                            <div class="btn">
+                              <span>RECEIPT</span>
+                              <input name="picture" #inputPicture type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                              <input class="file-path validate" name="sth" type="text" placeholder="Upload Picture">
+                            </div>
+                          </div>
+                          <div class="input-field center-align">
+                            <button name="addButton" class="btn waves-effect waves-light" type="submit" name="action">UPLOAD
+                              <i class="material-icons right">payment</i>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col s5">
+                        <h5>
+                          Pay By PayPal
+                        </h5>
+                        <img src="../../../assets/paypal.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="row">
+                      <div class="col s6 left-side">
+                        <div>
+                          <h5>Customer Name</h5>
+                          {{ transaction.owner.firstName }} {{ transaction.owner.lastName }}
+                        </div>
+                        <hr>
+                        <div>
+                          <h5>Total Price</h5>
+                          {{transaction.totalPrice| currency:'USD':true:'1.2-2'}}
+                        </div>
+                        <hr>
+                        <div>
+                          <h5>Status</h5>
+                          {{transaction.status}}
+                        </div>
+                      </div>
+                      <div class="col s6">
+                        <h5>Address</h5>
+                        {{transaction.owner.address}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col s4 clickable" *ngFor="let item of transaction.items" (click)="viewProductDetail(item.product)">
+                <div class="card">
+                  <div class="card-image">
+                    <img [src]="item.product.picture">
+                  </div>
+                  <div class="card-content">
+
+                    <span class="card-title">
+                        {{item.product.name}}
+                    </span>
+                    <p>
+                      Quantity: {{item.quantity}}
+                      <br>
+                      <small>
+                        {{item.product.price * item.quantity | currency:'USD':true:'1.2-2'}}
+                      </small>
+                    </p>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</div>

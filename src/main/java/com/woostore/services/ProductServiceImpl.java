@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> addUrlPicture(List<Product> products) {
         for (Product product : products) {
-            product.setPicture(urlPath + product.getPicture());
+            product.setPicture(urlPath + "product/image" + product.getPicture());
         }
         return products;
     }

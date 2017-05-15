@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../service/authentication.service';
 import {User} from '../../user/user';
 import {Transaction} from '../../transaction/transaction';
 import {TransactionService} from "app/service/transaction.service";
+import {Product} from '../../product/product';
 
 @Component({
   selector: 'app-manage-cart',
