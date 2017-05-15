@@ -71,6 +71,9 @@
                       </div>
                       <div class="col s6">
                         <h5>Payment</h5>
+                        <div *ngIf="transaction.wooPayment === null">
+                          No Payment
+                        </div>
                       </div>
                     </div>
                   </div>
