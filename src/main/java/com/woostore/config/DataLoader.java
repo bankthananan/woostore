@@ -48,8 +48,8 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        productDao.addProduct(Product.builder().name("Nexus 5X").price(11000).amount(20).description("A phone").picture("5x.jpg").rating(4.35).build());
-        productDao.addProduct(Product.builder().name("Nexus 6P").price(18000).amount(12).description("A phone").picture("6p.jpg").rating(4.28).build());
+        productDao.addProduct(Product.builder().name("Nexus 5X").price(11000).amount(20).description("A phone").picture("5x.jpg").rating(4.35).enabled(true).build());
+        productDao.addProduct(Product.builder().name("Nexus 6P").price(18000).amount(12).description("A phone").picture("6p.jpg").rating(4.28).enabled(true).build());
 
 
 
@@ -62,9 +62,7 @@ public class DataLoader implements ApplicationRunner {
         authorityRepository.save(auth3);
 
 
-        User user = User.builder().firstName("Zenon").lastName("SI").address("AAA").phoneNumber("001").userAuth(UserAuth.builder().username("zenon").password("zenon").build()).build();
-
-
+        User user = User.builder().firstName("Zenon").lastName("SI").address("AAA").phoneNumber("001").enabled(true).userAuth(UserAuth.builder().username("zenon").password("zenon").build()).build();
 
 
         Transaction transaction = Transaction.builder().owner(user).date(new Date()).build();

@@ -72,4 +72,14 @@ export class CartService {
     this.update();
   }
 
+  updateProduct(product: Product): void {
+    const cart: Cart = this.getCart();
+    cart.items.forEach((item) => {
+      if(item.product.id === product.id) {
+        item.product = product;
+      }
+    });
+    this.updateCart(cart);
+  }
+
 }

@@ -62,10 +62,14 @@ public class AuthenticationRestController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails, device);
         User user = userService.getUserByUsername(authenticationRequest.getUsername());
-        Map result = new HashMap();
-        result.put("token", token);
-        result.put("user", user);
-        return ResponseEntity.ok(result);
+        
+        if(user.isEnabled()) {
+            Map result = new HashMap();
+            result.put("token", token);
+            result.put("user", user);
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.status(401).build();
     }
 
 //    @GetMapping(value = "${jwt.route.authentication.path}/customer")

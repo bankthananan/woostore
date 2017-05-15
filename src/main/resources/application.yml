@@ -1,7 +1,7 @@
 spring:
   profiles:
     active:
-      - iammiind
+      - zenonnb
       - inMemoryDB
   http:
       multipart:
@@ -21,6 +21,12 @@ spring:
 image:
   urlPath: 'http://localhost:8080/product/image/'
   dirPath: '/Users/zenon/Desktop/woostore/images/'
+---
+spring:
+  profiles: zenonnb
+image:
+  urlPath: 'http://localhost:8080/product/image/'
+  dirPath: 'C:\Users\sizen\Desktop\Projects\woostore\images\'
 ---
 spring:
   profiles: iammiind

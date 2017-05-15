@@ -32,7 +32,7 @@
               {{product?.price | currency:'USD':true:'1.2-2'}}
             </p>
           </div>
-          <div class="card-action detail-text-shopping-cart">
+          <div class="card-action detail-text-shopping-cart" *ngIf="product?.enabled">
             <a class="indigo-text text-darken-4" (click)="addToCart(product)">
               <i class="material-icons left">add_shopping_cart</i>
               Add to Shopping Cart

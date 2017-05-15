@@ -10,11 +10,9 @@ import com.woostore.services.UserService;
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +22,17 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    UserRepository userRepository;
-
-//    /user for admin use only
-
     @JsonView(View.Auth.class)
     @PostMapping("/user")
     public User addCustomer(@RequestBody User user) {
         return userService.addCustomer(user);
+    }
+
+    @JsonView(View.Auth.class)
+    @PostMapping("/user/staff")
+    @PreAuthorize("hasRole('ADMIN')")
+    public User addStaff(@RequestBody User user) {
+        return userService.addStaff(user);
     }
 
     @JsonView(View.Auth.class)
@@ -43,8 +43,22 @@ public class UserController {
     }
 
     @GetMapping("/user")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<User> getAll() {
-        return Lists.newArrayList(userRepository.findAll());
+        return userService.getAll();
+    }
+
+    @GetMapping("/user/search/{text}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<User> searchUser(@PathVariable("text") String text) {
+        return userService.searchUser(text);
+    }
+
+    @DeleteMapping("/user/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
     }
 
 }

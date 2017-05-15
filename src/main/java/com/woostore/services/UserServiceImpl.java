@@ -17,6 +17,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -58,6 +59,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User addStaff(User user) {
+        user.getUserAuth().setAuthorities(new ArrayList<>());
+        user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_CUSTOMER));
+        user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_STAFF));
+        user.getUserAuth().setPassword(new BCryptPasswordEncoder().encode(user.getUserAuth().getPassword()));
+        user.getUserAuth().setEnabled(true);
+        user.getUserAuth().setLastPasswordResetDate(Date.from(LocalDate.of(2016, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        user.setTransactions(new HashSet<>());
+        userAuthRepository.save(user.getUserAuth());
+        return userDao.add(user);
+    }
+
+    @Override
     public User addAdmin(User user) {
         user.getUserAuth().setAuthorities(new ArrayList<>());
         user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_CUSTOMER));
@@ -81,5 +95,20 @@ public class UserServiceImpl implements UserService {
         user.setTransactions(new HashSet<>());
         userAuthRepository.save(user.getUserAuth());
         return userDao.add(user);
+    }
+
+    @Override
+    public void deleteUser(long id) {
+        userDao.delete(id);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userDao.getAll();
+    }
+
+    @Override
+    public List<User> searchUser(String text) {
+        return userDao.searchUser(text);
     }
 }

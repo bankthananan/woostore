@@ -25,4 +25,5 @@ public class Product {
     String description;
     String picture;
     double rating;
+    boolean enabled;
 }

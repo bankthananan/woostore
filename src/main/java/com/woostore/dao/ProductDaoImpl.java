@@ -28,7 +28,9 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public void deleteProduct(Long id) {
-        productRepository.delete(id);
+        Product product = productRepository.findOne(id);
+        product.setEnabled(false);
+        productRepository.save(product);
     }
 
     @Override

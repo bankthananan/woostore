@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Headers, Http, Response} from '@angular/http';
+import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from "rxjs/Rx";
 import {User} from '../user/user';
 import {Authority} from '../user/authority';
@@ -36,7 +36,8 @@ export class AuthenticationService {
           return false;
         }
 
-      }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+      });
+      // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getToken(): string {
@@ -74,8 +75,14 @@ export class AuthenticationService {
     return hasRole;
   }
 
-  addCustomer(customer: User) {
+  addCustomer(customer: User): Observable<User> {
     return this.http.post(wooConfig.serverPath + 'user', customer)
+      .map(res => res.json());
+  }
+
+  addStaff(staff: User): Observable<User> {
+    let options = new RequestOptions({headers: this.headers, method: 'post'});
+    return this.http.post(wooConfig.serverPath + 'user/staff', staff, options)
       .map(res => res.json());
   }
 
@@ -84,4 +91,11 @@ export class AuthenticationService {
       .map(res => res.json());
   }
 
+  deleteUser(id: number) {
+    return this.http.delete(wooConfig.serverPath + 'user/' + id, {headers: this.headers});
+  }
+
+  searchUser(text: string) {
+    return this.http.get(wooConfig.serverPath + 'user/search/' + text, {headers: this.headers}).map(res => res.json());
+  }
 }

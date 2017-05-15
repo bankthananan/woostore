@@ -41,7 +41,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product addProduct(Product product) {
-        return productDao.addProduct(product);
+        product.setEnabled(true);
+        Product returnProduct = productDao.addProduct(product);
+        returnProduct.setPicture(urlPath + product.getPicture());
+        return returnProduct;
     }
 
     @Override

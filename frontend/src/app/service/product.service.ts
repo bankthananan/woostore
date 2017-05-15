@@ -27,7 +27,7 @@ export class ProductService {
       .map(res => res.json());
   }
 
-  addProduct(product: Product, file: any) {
+  addProductWithPic(product: Product, file: any) {
     let formData = new FormData();
     formData.append('file', file);
     let header = new Headers({'Authorization': 'Bearer ' + this.authenticationService.getToken()});
@@ -45,6 +45,11 @@ export class ProductService {
           return Observable.throw(new Error(error.status));
           });
       });
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    let options = new RequestOptions({headers: this.authenticationService.headers, method: 'post'});
+    return this.http.post(wooConfig.serverPath + 'product', product, options).map(res => res.json());
   }
 
   deleteProduct(id: number) {

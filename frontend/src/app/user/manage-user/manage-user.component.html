@@ -3,7 +3,7 @@
     <div class="col s12">
       <div class="card">
         <div class="card-content">
-          <form materialize>
+          <form materialize #myForm (ngSubmit)="onSubmit(myForm)">
             <div class="row">
               <div class="input-field col s6">
                 <input placeholder="First Name" id="firstName" type="text" class="validate" name="firstname" [(ngModel)]="userForm.firstName">
@@ -47,7 +47,7 @@
                 <button name="resetButton" class="btn waves-effect waves-light blue-grey lighten-5 black-text" type="reset" (click)="reset()">
                   RESET
                 </button>
-                <button name="addButton" class="btn waves-effect waves-light" type="submit" name="action"> {{!userForm.userAuth.password? 'ADD' : 'UPDATE'}}
+                <button name="addButton" class="btn waves-effect waves-light" type="submit" name="action"> {{!userForm.id? 'ADD' : 'UPDATE'}}
                   <i class="material-icons right">send</i>
                 </button>
               </div>
@@ -60,18 +60,37 @@
 
   <div class="row">
     <div class="col s12">
+      <nav class="indigo darken-4">
+        <div class="nav-wrapper">
+          <form materialize>
+            <div class="input-field">
+              <input id="search" name="search" type="search" [(ngModel)]="search" (input)="searchUser()">
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
       <ul class="collection with-header">
-        <li class="collection-item" *ngFor="let user of users">
-          <div>
-            {{user.firstName}}
-            <a class="secondary-content">
-              <i class="material-icons">delete</i>
-            </a>
-            <a (click)="edit(user)" class="secondary-content">
-              <i class="material-icons">edit</i>
-            </a>
-          </div>
-        </li>
+        <div *ngFor="let user of users">
+          <li class="collection-item" *ngIf="user.enabled">
+            <div>
+              {{ getRoleString(user) }} | <strong>Username:</strong> {{user.userAuth.username}} | {{user.firstName}} {{ user.lastName }}
+              <a (click)="delete(user)" class="secondary-content">
+                <i class="material-icons">delete</i>
+              </a>
+              <a (click)="edit(user)" class="secondary-content">
+                <i class="material-icons">edit</i>
+              </a>
+            </div>
+          </li>
+        </div>
+
       </ul>
     </div>
   </div>

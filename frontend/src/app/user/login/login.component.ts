@@ -28,11 +28,16 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['list']).then($ => window.location.reload());
         }
       }, (error) => {
-        if(error === 'Unauthorized') {
-          Materialize.toast('Username or Password is incorrect', 4000)
+        if(error._body !== "") {
+          if(error.json().error === 'Unauthorized') {
+            Materialize.toast('Username or Password is incorrect', 4000);
+          }
+        }
+        else if(error.status === 401) {
+          Materialize.toast('Cannot use this user', 4000)
         }
         else {
-          Materialize.toast(error, 4000)
+          Materialize.toast(error, 4000);
         }
       });
   }

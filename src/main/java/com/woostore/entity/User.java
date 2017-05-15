@@ -53,6 +53,9 @@ public class User {
     @OneToMany(mappedBy = "owner")
     Set<Transaction> transactions;
 
+    @NonNull
+    boolean enabled;
+
     public List<Authority> getAuthorities(){
         return userAuth.getAuthorities();
     }

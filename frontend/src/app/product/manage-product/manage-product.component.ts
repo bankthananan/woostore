@@ -1,7 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from '../../service/product.service';
 import {Product} from '../product';
-import {NgForm} from '@angular/forms';
+import {FormGroup, NgForm} from '@angular/forms';
+import {CartService} from '../../service/cart.service';
 
 @Component({
   selector: 'app-manage-product',
@@ -14,7 +15,7 @@ export class ManageProductComponent implements OnInit {
   productForm: Product = new Product();
   products: Product[];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cartService: CartService) { }
 
   ngOnInit() {
     this.productService.getAllProduct().subscribe(products => this.products = products);
@@ -28,16 +29,40 @@ export class ManageProductComponent implements OnInit {
     this.productService.getAllProduct().subscribe(products => this.products = products);
   }
 
-  onSubmit(f: NgForm) {
+  refinePicture() {
+    if(this.productForm.picture) {
+      const picArray = this.productForm.picture.split("/");
+      this.productForm.picture = picArray[picArray.length - 1];
+    }
+  }
+
+  onSubmit(myForm: FormGroup) {
     let inputPictureEl: HTMLInputElement = this.inputPicture.nativeElement;
-    this.productService.addProduct(this.productForm, inputPictureEl.files.item(0)).subscribe(() => {
-      this.getAllProduct();
-      f.resetForm();
-    });
+    if(inputPictureEl.files.length > 0) {
+      this.productService.addProductWithPic(this.productForm, inputPictureEl.files.item(0)).subscribe((product) => {
+        this.getAllProduct();
+        myForm.reset();
+        this.resetForm();
+        this.cartService.updateProduct(product);
+      });
+    }
+    else {
+      this.refinePicture();
+      this.productService.addProduct(this.productForm).subscribe((product) => {
+        this.getAllProduct();
+        myForm.reset();
+        this.resetForm();
+        this.cartService.updateProduct(product);
+      });
+    }
   }
 
   delete(product: Product) {
     this.productService.deleteProduct(product.id).subscribe(() => this.getAllProduct());
+  }
+
+  resetForm() {
+    this.productForm = new Product();
   }
 
 }
