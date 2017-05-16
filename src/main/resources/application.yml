@@ -2,7 +2,7 @@ spring:
   profiles:
     active:
       - deploy
-      - inMemoryDB
+      - mysqlDB
   http:
       multipart:
         max-file-size: 10MB
@@ -60,7 +60,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.MySQL57Dialect
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
   datasource:
       url: jdbc:mysql://localhost/wooStore?useSSL=false
       driverClassName: com.mysql.jdbc.Driver
