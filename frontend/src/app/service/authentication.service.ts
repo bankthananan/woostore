@@ -75,6 +75,20 @@ export class AuthenticationService {
     return hasRole;
   }
 
+  hasRoleUser(role : string, user: User): boolean {
+    let hasRole: boolean = false;
+    if(user) {
+      role = role.toUpperCase();
+      user.userAuth.authorities.forEach((authority: Authority) => {
+        const roleAuthorityName : AuthorityName = <AuthorityName>AuthorityName[('ROLE_' + role)];
+        if(AuthorityName[authority.name] === AuthorityName[roleAuthorityName]) {
+          hasRole = true;
+        }
+      });
+    }
+    return hasRole;
+  }
+
   addCustomer(customer: User): Observable<User> {
     return this.http.post(wooConfig.serverPath + 'user', customer)
       .map(res => res.json());

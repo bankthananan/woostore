@@ -1,8 +1,8 @@
 spring:
   profiles:
     active:
-      - zenon
       - deploy
+      - mysqlDB
   http:
       multipart:
         max-file-size: 10MB

@@ -78,7 +78,7 @@
     <div class="col s12">
       <ul class="collection with-header">
         <div *ngFor="let user of users">
-          <li class="collection-item" *ngIf="user.enabled">
+          <li class="collection-item" *ngIf="user.enabled && !isAdmin(user)">
             <div>
               {{ getRoleString(user) }} | <strong>Username:</strong> {{user.userAuth.username}} | {{user.firstName}} {{ user.lastName }}
               <a (click)="delete(user)" class="secondary-content">

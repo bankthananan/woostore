@@ -60,4 +60,8 @@ export class ManageUserComponent implements OnInit {
     return user.userAuth.authorities[user.userAuth.authorities.length - 1].name.toString().substring(5);
   }
 
+  isAdmin(user: User): boolean {
+    return this.authenticationService.hasRoleUser('admin', user);
+  }
+
 }
