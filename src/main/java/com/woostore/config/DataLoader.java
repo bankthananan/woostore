@@ -8,6 +8,8 @@ import com.woostore.entity.commerce.OrderItem;
 import com.woostore.entity.commerce.Product;
 import com.woostore.entity.commerce.Transaction;
 import com.woostore.entity.commerce.TransactionStatus;
+import com.woostore.entity.commerce.payment.WooPayment;
+import com.woostore.entity.commerce.payment.WooPaymentType;
 import com.woostore.entity.security.Authority;
 import com.woostore.entity.security.AuthorityName;
 import com.woostore.entity.security.UserAuth;
@@ -78,6 +80,12 @@ public class DataLoader implements ApplicationRunner {
         items2.add(orderItem2);
         transaction2.setItems(items2);
         transaction2.setStatus(TransactionStatus.PAID);
+
+        WooPayment wooPayment = new WooPayment();
+        wooPayment.setPaypalPaymentID("fsgdsfdsf");
+        wooPayment.setWooPaymentType(WooPaymentType.PAYPAL);
+
+        transaction2.setWooPayment(wooPayment);
 
 
         Set<Transaction> transactions = new HashSet<>();

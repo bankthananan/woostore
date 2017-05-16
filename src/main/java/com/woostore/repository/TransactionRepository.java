@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
-    List<Transaction> findByStatus(TransactionStatus status);
-    List<Transaction> findByDateAfterAndDateBefore(Date dateStart, Date dateEnd);
-    List<Transaction> findByStatusAndDateAfterAndDateBefore(TransactionStatus status, Date dateStart, Date dateEnd);
+    List<Transaction> findAllByOrderByIdDesc();
+    List<Transaction> findByStatusOrderByIdDesc(TransactionStatus status);
+    List<Transaction> findByDateAfterAndDateBeforeOrderByIdDesc(Date dateStart, Date dateEnd);
+    List<Transaction> findByStatusAndDateAfterAndDateBeforeOrderByIdDesc(TransactionStatus status, Date dateStart, Date dateEnd);
+    List<Transaction> findAllByOwnerIdOrderByIdDesc(long id);
 }

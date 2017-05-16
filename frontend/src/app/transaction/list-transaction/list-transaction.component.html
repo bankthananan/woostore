@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="col s12" *ngIf="transactions">
+    <div class="collection">
+        <a *ngFor="let transaction of transactions" [routerLink]="transaction.id" class="collection-item">{{transaction.status}} / {{transaction.date | date:'medium' }}</a>
+    </div>
+  </div>
+</div>

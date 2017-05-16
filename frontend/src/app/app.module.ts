@@ -27,6 +27,7 @@ import { ManageCartComponent } from './cart/manage-cart/manage-cart.component';
 import {CartRoutingModule} from './cart/cart-routing.module';
 import {CartService} from './service/cart.service';
 import { DetailTransactionComponent } from './transaction/detail-transaction/detail-transaction.component';
+import { ListTransactionComponent } from './transaction/list-transaction/list-transaction.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { DetailTransactionComponent } from './transaction/detail-transaction/det
     ManageTransactionComponent,
     ManageCartComponent,
     DetailTransactionComponent,
+    ListTransactionComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import {User} from '../../user/user';
 import {Transaction} from '../../transaction/transaction';
 import {TransactionService} from "app/service/transaction.service";
 import {Product} from '../../product/product';
+import {TransactionStatus} from '../../transaction/transaction-status';
 
 @Component({
   selector: 'app-manage-cart',
@@ -61,7 +62,10 @@ export class ManageCartComponent implements OnInit {
     const transaction: Transaction = new Transaction();
     transaction.items = this.cart.items;
     transaction.owner = this.authenticationService.getUser();
-    this.transactionService.addTransaction(transaction).subscribe(transaction => console.log(transaction));
+    transaction.status = TransactionStatus.PENDING;
+    this.transactionService.addTransaction(transaction).subscribe(transaction => {
+      this.router.navigate(['/purchase/' + transaction.id])
+    });
     this.resetCart();
   }
 

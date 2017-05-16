@@ -10,6 +10,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,21 +43,25 @@ public class TransactionController {
     TransactionService transactionService;
 
     @GetMapping("transactions")
+    @PreAuthorize("hasRole('STAFF')")
     public List<Transaction> getTransactions() {
         return transactionService.getTransactions(null);
     }
 
     @GetMapping("transactions/pending")
+    @PreAuthorize("hasRole('STAFF')")
     public List<Transaction> getTransactionsPending() {
         return transactionService.getTransactionsPending(null);
     }
 
     @GetMapping("transactions/paid")
+    @PreAuthorize("hasRole('STAFF')")
     public List<Transaction> getTransactionsPaid() {
         return transactionService.getTransactionsPaid(null);
     }
 
     @GetMapping("transactions/{timestamp}")
+    @PreAuthorize("hasRole('STAFF')")
     public List<Transaction> getTransactions(@PathVariable("timestamp") String timestamp) {
         Date date = Date.from( Instant.ofEpochSecond( Long.parseLong(timestamp) ) );
         System.out.println(date);
@@ -64,6 +69,7 @@ public class TransactionController {
     }
 
     @GetMapping("transactions/pending/{timestamp}")
+    @PreAuthorize("hasRole('STAFF')")
     public List<Transaction> getTransactionsPending(@PathVariable("timestamp") String timestamp) {
         Date date = Date.from( Instant.ofEpochSecond( Long.parseLong(timestamp) ) );
         date.setHours(0);
@@ -73,6 +79,7 @@ public class TransactionController {
     }
 
     @GetMapping("transactions/paid/{timestamp}")
+    @PreAuthorize("hasRole('STAFF')")
     public List<Transaction> getTransactionsPaid(@PathVariable("timestamp") String timestamp) {
         Date date = Date.from( Instant.ofEpochSecond( Long.parseLong(timestamp) ) );
         date.setHours(0);
@@ -89,6 +96,11 @@ public class TransactionController {
     @GetMapping("/transaction/{id}")
     public Transaction getTransaction(@PathVariable("id") long id) {
         return transactionService.findById(id);
+    }
+
+    @GetMapping("/transaction/owner/{id}")
+    public List<Transaction> getTransactionByOwnerId(@PathVariable("id") long id) {
+        return transactionService.findAllByOwnerId(id);
     }
 
     @GetMapping("/transaction/payment/image/{fileName:.+}")

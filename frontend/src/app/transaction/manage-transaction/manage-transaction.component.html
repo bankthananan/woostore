@@ -71,8 +71,24 @@
                       </div>
                       <div class="col s6">
                         <h5>Payment</h5>
-                        <div *ngIf="transaction.wooPayment === null">
+                        <div *ngIf="!isPaid(transaction)">
                           No Payment
+                        </div>
+                        <div *ngIf="isWireTransfer(transaction)">
+                          <div>
+                            Payment Type: Wire Transfer
+                          </div>
+                          <div>
+                            <img style="width: 100%;" [src]="transaction.wooPayment.fileName" alt="">
+                          </div>
+                        </div>
+                        <div *ngIf="isPayPal(transaction)">
+                          <div>
+                            Payment Type: PayPal
+                          </div>
+                          <div>
+                            Payload : {{ transaction.wooPayment.paypalPaymentID }}
+                          </div>
                         </div>
                       </div>
                     </div>

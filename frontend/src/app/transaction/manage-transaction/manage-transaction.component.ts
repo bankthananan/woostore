@@ -4,6 +4,7 @@ import {TransactionService} from '../../service/transaction.service';
 import {Router} from '@angular/router';
 import {TransactionStatus} from '../transaction-status';
 import {Observable} from 'rxjs/Observable';
+import {WooPaymentType} from '../woo-payment-type';
 
 @Component({
   selector: 'app-manage-transaction',
@@ -62,6 +63,18 @@ export class ManageTransactionComponent implements OnInit {
         this.viewStatus = null;
     }
     this.getTransaction();
+  }
+
+  isPayPal(transaction: Transaction) {
+    return this.isPaid(transaction) && transaction.wooPayment.wooPaymentType === WooPaymentType.PAYPAL;
+  }
+
+  isWireTransfer(transaction: Transaction): boolean {
+    return this.isPaid(transaction) && transaction.wooPayment.wooPaymentType === WooPaymentType.WIRE_TRANSFER ;
+  }
+
+  isPaid(transaction: Transaction): boolean {
+    return transaction && transaction.status === TransactionStatus.PAID;
   }
 
 }

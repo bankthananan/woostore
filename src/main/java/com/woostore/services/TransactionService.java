@@ -11,4 +11,5 @@ public interface TransactionService {
     List<Transaction> getTransactionsPending(Date date);
     List<Transaction> getTransactionsPaid(Date date);
     Transaction findById(long id);
+    List<Transaction> findAllByOwnerId(long id);
 }

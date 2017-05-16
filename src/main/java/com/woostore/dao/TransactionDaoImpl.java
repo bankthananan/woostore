@@ -39,30 +39,35 @@ public class TransactionDaoImpl implements TransactionDao {
     @Override
     public List<Transaction> getTransactions(Date date) {
         if(date == null) {
-            return Lists.newArrayList(transactionRepository.findAll());
+            return transactionRepository.findAllByOrderByIdDesc();
         }
 
-        return transactionRepository.findByDateAfterAndDateBefore(getStartDate(date), getEndDate(date));
+        return transactionRepository.findByDateAfterAndDateBeforeOrderByIdDesc(getStartDate(date), getEndDate(date));
     }
 
     @Override
     public List<Transaction> getTransactionsPending(Date date) {
         if(date == null) {
-            return transactionRepository.findByStatus(TransactionStatus.PENDING);
+            return transactionRepository.findByStatusOrderByIdDesc(TransactionStatus.PENDING);
         }
-        return transactionRepository.findByStatusAndDateAfterAndDateBefore(TransactionStatus.PENDING, getStartDate(date), getEndDate(date));
+        return transactionRepository.findByStatusAndDateAfterAndDateBeforeOrderByIdDesc(TransactionStatus.PENDING, getStartDate(date), getEndDate(date));
     }
 
     @Override
     public List<Transaction> getTransactionsPaid(Date date) {
         if(date == null) {
-            return transactionRepository.findByStatus(TransactionStatus.PAID);
+            return transactionRepository.findByStatusOrderByIdDesc(TransactionStatus.PAID);
         }
-        return transactionRepository.findByStatusAndDateAfterAndDateBefore(TransactionStatus.PAID, getStartDate(date), getEndDate(date));
+        return transactionRepository.findByStatusAndDateAfterAndDateBeforeOrderByIdDesc(TransactionStatus.PAID, getStartDate(date), getEndDate(date));
     }
 
     @Override
     public Transaction findById(long id) {
         return transactionRepository.findOne(id);
+    }
+
+    @Override
+    public List<Transaction> findAllByOwnerId(long id) {
+        return transactionRepository.findAllByOwnerIdOrderByIdDesc(id);
     }
 }

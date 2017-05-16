@@ -25,7 +25,6 @@ export class CartService {
   addProduct(product: Product, quantity: number): void {
     let itemTargetIndex: number = -1;
     const cart: Cart = this.getCart();
-    console.log(cart);
     this.getCart().items.forEach((item, index) => {
       if(item.product.id === product.id) {
         itemTargetIndex = index;

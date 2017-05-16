@@ -39,7 +39,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     public Transaction editPictureUrl(Transaction transaction) {
         for(OrderItem orderItem : transaction.getItems()) {
-            orderItem.getProduct().setPicture(urlPath + "product/image/" + orderItem.getProduct().getPicture());
+            if(!orderItem.getProduct().getPicture().contains(urlPath + "product/image/")) {
+                orderItem.getProduct().setPicture(urlPath + "product/image/" + orderItem.getProduct().getPicture());
+            }
         }
         if(transaction.getWooPayment() != null) {
             transaction.getWooPayment().setFileName(urlPath + "transaction/payment/image/" + transaction.getWooPayment().getFileName());
@@ -54,6 +56,9 @@ public class TransactionServiceImpl implements TransactionService {
         }
         transaction.setDate(new Date());
         transaction.setOwner(userService.findById(transaction.getOwner().getId()));
+        for(OrderItem item : transaction.getItems()) {
+            System.out.println(item.getProduct().getPicture());
+        }
         return transactionDao.addTransaction(transaction);
     }
 
@@ -75,5 +80,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction findById(long id) {
         return editPictureUrl(transactionDao.findById(id));
+    }
+
+    @Override
+    public List<Transaction> findAllByOwnerId(long id) {
+        return transactionDao.findAllByOwnerId(id);
     }
 }

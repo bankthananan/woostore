@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> addUrlPicture(List<Product> products) {
         for (Product product : products) {
-            product.setPicture(urlPath + "product/image" + product.getPicture());
+            product.setPicture(urlPath + "product/image/" + product.getPicture());
         }
         return products;
     }
@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
     public Product findById(long id) {
         Product product = productDao.findById(id);
         if(product != null) {
-            product.setPicture(urlPath + product.getPicture());
+            product.setPicture(urlPath + "product/image/" + product.getPicture());
         }
         return product;
     }

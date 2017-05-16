@@ -19,7 +19,7 @@ export class TransactionService {
     if(date) {
       url += '/' + date.getTime() / 1000;
     }
-    return this.http.get(url).map(res => res.json());
+    return this.http.get(url, {headers: this.authenticationService.headers}).map(res => res.json());
   }
 
   getPendingTransaction(date: Date): Observable<Transaction[]> {
@@ -27,7 +27,7 @@ export class TransactionService {
     if(date) {
       url += '/' + date.getTime() / 1000;
     }
-    return this.http.get(url).map(res => res.json());
+    return this.http.get(url, {headers: this.authenticationService.headers}).map(res => res.json());
   }
 
   getPaidTransaction(date: Date): Observable<Transaction[]> {
@@ -35,7 +35,7 @@ export class TransactionService {
     if(date) {
       url += '/' + date.getTime() / 1000;
     }
-    return this.http.get(url).map(res => res.json());
+    return this.http.get(url, {headers: this.authenticationService.headers}).map(res => res.json());
   }
 
   addTransaction(transaction: Transaction): Observable<Transaction> {
@@ -75,6 +75,10 @@ export class TransactionService {
     let options = new RequestOptions({headers: headers, method: 'post'});
     let body = JSON.stringify(transaction);
     return this.http.post(wooConfig.serverPath + 'pay', body, options).map(res => res.text());
+  }
+
+  getTransactionByUser() {
+    return this.http.get(wooConfig.serverPath + 'transaction/owner/' + this.authenticationService.getUser().id, {headers: this.authenticationService.headers}).map(res => res.json());
   }
 
   // getProduct(id: number) {
