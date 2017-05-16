@@ -8,3 +8,4 @@ UPDATE mysql.user SET Password=PASSWORD('woowoo') WHERE User='root'; FLUSH PRIVI
 
 
 54.245.150.45 - backend
+54.202.186.206 - frontend
