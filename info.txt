@@ -1,0 +1,7 @@
+si.zenon-buyer@gmail.com
+12345678
+
+tomcat
+myzenon
+
+UPDATE mysql.user SET Password=PASSWORD('woowoo') WHERE User='root'; FLUSH PRIVILEGES;

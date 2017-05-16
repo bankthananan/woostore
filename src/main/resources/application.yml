@@ -2,7 +2,7 @@ spring:
   profiles:
     active:
       - deploy
-      - mysqlDB
+      - inMemoryDB
   http:
       multipart:
         max-file-size: 10MB
@@ -44,7 +44,7 @@ image:
 spring:
   profiles: deploy
 image:
-  urlPath: 'http://54.245.217.104:8080/woostore/'
+  urlPath: 'http://54.245.150.45:8080/woostore/'
   dirPath: '/home/ubuntu/images/'
 ---
 spring:
@@ -62,7 +62,7 @@ spring:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.MySQL57Dialect
   datasource:
-      url: jdbc:mysql://localhost/wooStore
+      url: jdbc:mysql://localhost/wooStore?useSSL=false
       driverClassName: com.mysql.jdbc.Driver
       username: root
       password: woowoo
