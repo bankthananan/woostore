@@ -72,6 +72,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User addStaffIn(User user) {
+        user.getUserAuth().setAuthorities(new ArrayList<>());
+        user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_CUSTOMER));
+        user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_STAFF));
+        user.getUserAuth().setPassword(new BCryptPasswordEncoder().encode(user.getUserAuth().getPassword()));
+        user.getUserAuth().setEnabled(true);
+        user.getUserAuth().setLastPasswordResetDate(Date.from(LocalDate.of(2016, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+//        user.setTransactions(new HashSet<>());
+        userAuthRepository.save(user.getUserAuth());
+        return userDao.add(user);
+    }
+
+    @Override
+    public User addCustomerIn(User user) {
+        user.getUserAuth().setAuthorities(new ArrayList<>());
+        user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_CUSTOMER));
+        user.getUserAuth().setPassword(new BCryptPasswordEncoder().encode(user.getUserAuth().getPassword()));
+        user.getUserAuth().setEnabled(true);
+        user.getUserAuth().setLastPasswordResetDate(Date.from(LocalDate.of(2016, 01, 01).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+//        user.setTransactions(new HashSet<>());
+        userAuthRepository.save(user.getUserAuth());
+        return userDao.add(user);
+    }
+
+    @Override
     public User addAdmin(User user) {
         user.getUserAuth().setAuthorities(new ArrayList<>());
         user.getUserAuth().getAuthorities().add(authorityRepository.findByName(AuthorityName.ROLE_CUSTOMER));

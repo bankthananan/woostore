@@ -12,6 +12,8 @@ public interface UserService {
     User addStaff(User user);
     User getUserByUsername(String username);
     User addAdminIn(User user);
+    User addStaffIn(User user);
+    User addCustomerIn(User user);
     void deleteUser(long id);
     List<User> getAll();
     List<User> searchUser(String text);

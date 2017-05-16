@@ -20,11 +20,6 @@ export class ListProductComponent implements OnInit {
     this.productDataService.getAllProduct()
       .subscribe(products => {
         this.products = products;
-        this.products.push(this.products[0]);
-        this.products.push(this.products[0]);
-        this.products.push(this.products[0]);
-        this.products.push(this.products[0]);
-        this.products.push(this.products[0]);
       });
   }
 
